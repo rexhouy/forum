@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require "securerandom"
-class Users::CaptchaController < ApplicationController
+class Auth::CaptchaController < ApplicationController
         include SimpleCaptcha::ControllerHelpers
 
         def index
