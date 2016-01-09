@@ -1,0 +1,36 @@
+<%= form_for(@topic) do |f| %>
+  <% if @topic.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @topic.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-horizontal">
+    <div class="form-group">
+      <%=f.label :title, "标题", class: "control-label col-md-1 col-xs-12"%>
+      <div class="col-md-5 col-xs-12">
+        <%=f.text_field :title, class: "form-control", required: true%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%=f.label :category_id, "分类", class: "control-label col-md-1 col-xs-12"%>
+      <div class="col-md-5 col-xs-12">
+        <%=f.select :category_id, Category.all.collect{|c| [c.name, c.id]}, {}, class: "form-control", required: true%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%=f.label :content, "内容", class: "control-label col-md-1 col-xs-12"%>
+      <div class="col-md-8 col-xs-12">
+        <%=f.text_area :content, class: "redactor", required: true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions col-md-offset-1">
+    <%= f.submit "确认", class: "btn btn-primary" %>
+  </div>
+<% end %>

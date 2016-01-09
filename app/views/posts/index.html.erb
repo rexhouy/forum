@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  </head>
+  <body>
+    <div class="container">
+
+      <% @posts.each do |p| %>
+        <div class="row">
+          <div class="post">
+            <div class="col-xs-2 col-md-2 user-info">
+              <i class="glyphicon glyphicon-user"></i>
+              <p>测试用户测试</p>
+            </div>
+            <div class="col-xs-10 col-md-10 content">
+              <%=p.content.html_safe%>
+              <div class="info">
+                <span>发表于：<%=display_datetime p.created_at%></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div>
+          <%= paginate_info @posts %>
+          <%= will_paginate @posts, class: "apple_pagination" %>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

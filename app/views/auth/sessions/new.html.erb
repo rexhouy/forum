@@ -1,0 +1,28 @@
+<h2><% if  admin_login? %>管控台<%end%>登录</h2>
+
+<%= form_for resource, as: resource_name, url: session_path(resource_name), html: {class: "form-group"} do |f| %>
+  <div class="form-group">
+    <%= f.label :tel, "手机号" %><br />
+    <%= f.telephone_field :tel, autofocus: true, class: "form-control", required:true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, "密码" %><br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", required:true %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me, "记住我" %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "登录", class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>
+
+<% unless  admin_login? %>
+<%= render "auth/shared/links" %>
+<% end %>

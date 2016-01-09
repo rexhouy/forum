@@ -1,0 +1,24 @@
+<div class="row">
+  <ul class="list action-list">
+    <% @categories.each do |category| %>
+      <li>
+        <h3><%=category.name%></h3>
+        <div class="control">
+          <%= link_to edit_category_path(category), class: "btn icon" do %>
+            <i class="glyphicon glyphicon-edit"></i>
+            <% end %>
+            <%= link_to category, method: :delete, data: { confirm: '确定要删除吗?' }, class: "btn icon" do %>
+              <i class="glyphicon glyphicon-trash"></i>
+              <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="list">
+    <li class="card-new">
+      <%= link_to new_category_path do %>
+      <i class="glyphicon glyphicon-plus-sign"></i>
+      <% end %>
+    </li>
+  </ul>
+</div>

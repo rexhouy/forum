@@ -1,0 +1,51 @@
+@import "variables";
+
+// Centralize
+.table-center-wrap {
+    display: table;
+    table-layout: fixed;
+}
+.table-center {
+    display: table-cell !important;
+    vertical-align: middle;
+}
+
+.icon {
+    border: 0;
+    background-color: transparent;
+    verticle-align: middle;
+    color: #999;
+}
+.icon-danger {
+    color: #c9302c;
+}
+.icon-link-right {
+    i, span {
+        margin-left:15px;
+    }
+}
+.icon-link-left {
+    i, span {
+        margin-right: 16px;
+    }
+}
+
+.inherit-height {
+    height: inherit !important;
+}
+
+.btn {
+    height: auto;
+    border-radius: 2px;
+}
+
+.btn-primary {
+    background-color: $theme-color;
+    border: 1px solid #ddd;
+}
+
+.card {
+    background: #fff;
+    box-shadow: $shadow;
+    border-radius: 3px;
+}

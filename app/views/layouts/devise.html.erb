@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HelloWorld北京国际教育互促会</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render partial: "layouts/header" %>
+    <div class="container auth-container">
+      <div class="row">
+        <div class="col-md-7 col-sm-7 not-small-screen">
+          <div class="auth-cover"></div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag "jquery.js" %>
+    <%= javascript_include_tag "devise.js", "data-turbolinks-track" => true %>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+.list.action-list {
+    li {
+        background: #fff;
+        padding: 20px 12px;
+    }
+    h3 {
+        display: inline-block;
+    }
+    .control {
+        float: right;
+        margin-top: -12px;
+        margin-right: -12px;
+    }
+    i {
+        font-size: 20px;
+        top: 12px;
+    }
+    a {
+        display: inline-block;
+        height: 48px;
+        width: 48px;
+        margin-right: 12px;
+        vertical-align: middle;
+        padding: 0;
+        &:focus {
+            text-decoration: none;
+        }
+    }
+}
+.card-new {
+    text-align: center;
+    i {
+        color: #ddd;
+        font-size: 60px !important;
+    }
+}

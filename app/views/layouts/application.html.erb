@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HelloWorld北京国际教育互促会</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render partial: "layouts/header" %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p class="copyright">Copyright © 2016 HelloWorld北京国际教育互促会</p>
+        <ul>
+          <li>京ICP备15036211号</li>
+        </ul>
+      </div>
+    </footer>
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag params[:controller] %>
+
+  </body>
+</html>

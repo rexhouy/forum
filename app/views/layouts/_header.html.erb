@@ -1,0 +1,46 @@
+<header class="header">
+  <div class="nav-top">
+    <% if @back_url.present? %>
+    <button class="pull-left icon btn" onclick="window.location.href=('<%=@back_url%>')"><i class="glyphicon glyphicon-arrow-left"></i></button>
+    <% end %>
+    <div style="display: inline-block;" class="inherit-height">
+      <div class="table-center-wrap inherit-height">
+        <h1 class="brand table-center">HelloWorld北京国际教育互促会</h1>
+      </div>
+    </div>
+    <% if !@back_url.present? && current_user.present? && current_user.admin? %>
+      <button class="pull-right icon btn" onclick="nav.showSettings();"><i class="glyphicon glyphicon-cog"></i></button>
+    <% end %>
+  </div>
+  <% if @menus.present? %>
+  <div class="nav-bottom">
+    <div class="scroll-container">
+      <ul>
+        <% @menus.each do |m| %>
+        <li class="<%=m[:class]%>"><h2><%= link_to m[:name], m[:href] %></h2></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+</header>
+
+<div>
+  <% if notice.present? %>
+    <div class="alert alert-info" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="alert alert-danger" role="alert">
+      <%= alert %>
+    </div>
+  <% end %>
+</div>
+
+<div class="card settings">
+  <ul>
+    <li><%=link_to "创建文章", new_topic_path %></li>
+    <li><%=link_to "管理分类", categories_path %></li>
+  </ul>
+</div>
