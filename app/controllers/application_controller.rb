@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
         before_action :auth_user
         def auth_user
-                authenticate_user! unless params[:controller].start_with? "users"
+                authenticate_user! unless params[:controller].start_with? "auth"
         end
 
         def render_404
