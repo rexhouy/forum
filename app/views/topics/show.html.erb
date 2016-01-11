@@ -1,43 +1,56 @@
+<input type="hidden" id="topicId" value="<%=@topic.id%>">
+
 <div class="topic-header">
   <h2><%=@topic.title%></h2>
   <div class="control-group">
     <% if current_user.admin? %>
-    <%= link_to edit_topic_path(@topic), class: "btn btn-default" do %>
-    <i class="glyphicon glyphicon-edit"></i> 编辑
-    <% end %>
+      <%= link_to edit_topic_path(@topic), class: "btn btn-default" do %>
+        <i class="glyphicon glyphicon-edit"></i> 编辑
+      <% end %>
     <% else %>
-    <a href="#new_post" class="btn btn-default">
-      <i class="glyphicon glyphicon-share-alt"></i> 回复
-    </a>
+      <a href="#new_post" class="btn btn-default">
+        <i class="glyphicon glyphicon-share-alt"></i> 回复
+      </a>
     <% end %>
   </div>
 </div>
-<div class="topic-content">
-  <%= @topic.content.html_safe %>
-  <div class="info">
+
+<div class="row">
+  <div class="col-xs-12 col-md-2 topic-user-info user-info">
+    <%=avatar @topic.user, class: "avatar" %>
+    <p class="user-name"><%=@topic.user.name%></p>
+  </div>
+  <div class="col-md-10 col-xs-12">
+    <div class="topic-content">
+      <%= @topic.content.html_safe %>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12 topic-info">
     <span>发表于：<%=display_datetime @topic.created_at%></span>
   </div>
 </div>
 
-<div class="posts">
-  <h3>评论</h3>
-  <iframe src="/topics/<%=@topic.id%>/posts" frameborder="0" scrolling="no" width="100%" id="test"
-          onload="this.style.height = this.contentWindow.document.body.scrollHeight+'px'">
-  </iframe>
+<div class="posts row">
+  <div class="col-xs-12 col-sm-2">
+    <h3>评论</h3>
+  </div>
+  <div class="col-xs-12 col-sm-10">
+    <%=image_tag "spinner.gif", id: "spinner", class: "spinner" %>
+    <iframe frameborder="0" scrolling="no" width="100%" height="0" id="posts">
+    </iframe>
+  </div>
 </div>
 
 <div class="new-post">
-  <%= form_for([@topic, @topic.posts.build], class: "form-horizontal") do |f|%>
-  <div class="row">
-    <div class="form-group">
-      <%=f.label :content, "回复", class: "control-label col-md-1 col-xs-12"%>
-      <div class="col-md-5 col-xs-12">
+  <%= form_for([@topic, @topic.posts.build]) do |f|%>
+    <div class="row">
+      <%=f.label :content, "回复", class: "control-label col-md-2 col-xs-12"%>
+      <div class="col-md-10 col-xs-12">
         <%=f.text_area :content, class: "redactor", required: true%>
       </div>
     </div>
-  </div>
-  <div class="actions col-md-offset-1">
-    <%= f.submit "确认", class: "btn btn-primary" %>
-  </div>
+    <div class="actions col-md-offset-2">
+      <%= f.submit "确认", class: "btn btn-primary" %>
+    </div>
   <% end %>
 </div>

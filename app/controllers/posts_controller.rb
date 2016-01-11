@@ -5,7 +5,8 @@ class PostsController < ApplicationController
         # GET /posts
         # GET /posts.json
         def index
-                @posts = Post.paginate(page: params["page"])
+                @topic_id = params[:topic_id]
+                @posts = Post.where(topic_id: @topic_id).paginate(page: params["page"])
                 render layout: false
         end
 
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
         def destroy
                 @post.destroy
                 respond_to do |format|
-                        format.html { redirect_to posts_url, notice: "\"#{@post.title}\"已成功删除" }
+                        format.html { redirect_to topic_posts_url(params[:topic_id]), notice: "已成功删除" }
                         format.json { head :no_content }
                 end
         end

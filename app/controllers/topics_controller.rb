@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class TopicsController < ApplicationController
-        before_action :set_topic, only: [:show, :edit, :update, :destroy]
+        before_action :set_topic, only: [:edit, :update, :destroy]
         before_action :set_back_url, only: [:show, :new]
 
         # GET /topics
@@ -25,6 +25,7 @@ class TopicsController < ApplicationController
         # GET /topics/1
         # GET /topics/1.json
         def show
+                @topic = Topic.find(params[:id])
         end
 
         # GET /topics/new

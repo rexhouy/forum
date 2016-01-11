@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 		resources :posts
 	end
         resources :categories
+	resources :users
+
+	get "chat" => "chat#index"
 
 	post "images" => "images#create"
         # The priority is based upon order of creation: first created -> highest priority.

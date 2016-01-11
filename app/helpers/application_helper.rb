@@ -17,6 +17,11 @@ module ApplicationHelper
                 date.strftime("%Y-%m-%d %H:%M:%S") if date.present?
         end
 
+        def avatar(user, options = {})
+                url = user.avatar
+                url = "avatar.png" if url.nil?
+                image_tag(url, options).html_safe
+        end
 
         def paginate_info(obj)
                 total_pages = ((obj.total_entries - 1) / obj.per_page + 1).to_i

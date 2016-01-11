@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105092849) do
+ActiveRecord::Schema.define(version: 20160111114015) do
 
   create_table "captchas", id: false, force: :cascade do |t|
     t.string   "tel",              limit: 11, null: false
@@ -71,9 +71,11 @@ ActiveRecord::Schema.define(version: 20160105092849) do
     t.datetime "locked_at"
     t.string   "icon",                limit: 255
     t.integer  "role",                limit: 4
-    t.integer  "status",              limit: 4
+    t.boolean  "status",              limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar",              limit: 255
+    t.string   "name",                limit: 255
   end
 
   add_index "users", ["tel"], name: "index_users_on_tel", unique: true, using: :btree

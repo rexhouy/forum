@@ -34,7 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
                         ## Self define
                         t.string :icon
                         t.integer :role
-                        t.integer :status
+                        t.boolean :status
 
                         t.timestamps
                 end

@@ -1,8 +1,15 @@
 zh-CN:
   activerecord:
-    errors:
-      models:
-        product:
-          attributes:
-            article:
-              blank: "产品详情不能为空"
+    models:
+      user: "用户"
+      category: "板块"
+      topic: "话题"
+      post: "评论"
+    attributes:
+      user:
+        name: "用户名"
+        tel: "手机号"
+      topic:
+        title: "标题"
+        content: "内容"
+        category_id: "板块"

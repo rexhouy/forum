@@ -76,6 +76,7 @@ class CategoriesController < ApplicationController
         end
 
         def set_back_url
+                @title = "板块"
                 @back_url = categories_path
         end
 end

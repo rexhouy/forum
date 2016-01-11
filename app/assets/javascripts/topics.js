@@ -3,12 +3,20 @@
                 var self = {};
 
                 self.resizePostsFrame = function(obj) {
-                        console.log(obj.contentWindow.document.body.scrollHeight);
-
+                        setTimeout(function() {
+                                $("#spinner").hide();
+                                obj.style.height = obj.contentWindow.document.body.scrollHeight + "px";
+                        }, 500);
                 };
 
                 return self;
         };
+
+        $(function() {
+                $("#posts").load(function() {
+                        window.topics.resizePostsFrame(this);
+                }).attr("src", "/topics/"+$("#topicId").val()+"/posts");
+        });
 
         window.topics = topics();
 })();

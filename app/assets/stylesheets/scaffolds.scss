@@ -26,7 +26,7 @@ p, ol, ul, td {
         .brand {
             margin: 0;
             padding-left: 16px;
-            font-size: 18px;
+            font-size: 16px;
             color: #ddd;
             white-space: nowrap;
             font-weight: bold;
@@ -144,4 +144,17 @@ footer {
             display: inline-block;
         }
     }
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+}
+
+.pagination-section {
+    padding-top: 12px;
+}
+
+img {
+    width: 100%;
 }

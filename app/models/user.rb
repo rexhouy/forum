@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
 
         before_create do
                 self.role ||= User.roles[:user]
-                self.status = User.statuses[:active]
+                self.active = true
         end
 
         enum role: [:user, :admin]
-        enum status: [:active, :disabled]
+        validates :tel, presence: true, length: { is: 11 }, uniqueness: { message: "已经被使用" }
+        validates :name, uniqueness: {  message: "已经被使用！" }
 
         def email_required?
                 false
@@ -28,7 +29,7 @@ class User < ActiveRecord::Base
 
         ## validate user when sign in
         def active_for_authentication?
-                super && active?
+                super && self.active
         end
 
 end

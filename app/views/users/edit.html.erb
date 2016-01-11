@@ -1,0 +1,64 @@
+<div class="row">
+  <%= form_for @user, class: "form-horizontal" do |u| %>
+  <% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <br>
+  <div class="form-group">
+    <%=u.label :tel, "手机号", class: "control-label col-md-2"%>
+    <div class="col-md-10">
+      <p class="form-control-static"><%=u.object.tel%></p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%=u.label :name, "用户名", class: "control-label col-md-2"%>
+    <div class="col-md-10">
+      <%= u.text_field :name, class: "form-control", required: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%=u.label :avatar, "头像", class: "control-label col-md-2"%>
+    <div class="col-md-10">
+      <div class="avatar-editor" onclick="users.editAvatar()">
+        <%= avatar(@user, id: "avatarImage") %>
+      </div>
+      <p class="text-info">点击图片上传新头像</p>
+      <%= u.hidden_field :avatar, class: "form-control", required: true %>
+      <input type="hidden" id="thumb" value="true">
+      <input type="file" style="visibility:hidden;height:0" id="avatarUploader" onchange="users.uploadAvatar(event)">
+    </div>
+  </div>
+
+  <% if current_user.admin? %>
+  <div class="form-group">
+    <%=u.label :role, "角色", class: "control-label col-md-2"%>
+    <div class="col-md-10">
+      <%= u.select :role, options_for_select([["用户", "user"], ["管理员", "admin"]], u.object.role), {include_blank: false}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-10">
+      <%= u.check_box :active %>
+      <%= u.label :check_box, class: "control-label" do %>
+      启用
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="col-sm-12">
+    <%= u.submit "保存修改", class: "btn btn-primary" %>
+    <%= link_to "返回", @back_url, class: "btn btn-default" %>
+  </div>
+  <% end %>
+</div>
