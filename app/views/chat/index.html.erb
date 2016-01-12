@@ -1,1 +1,62 @@
-<script type="text/javascript" src="/faye/client.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HelloWorld北京国际教育互促会</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link href="<%=image_url('favicon.ico')%>" rel="icon">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div style="position:fixed;top:0;width:100%;z-index:999;">
+      <%= render partial: "layouts/header" %>
+    </div>
+
+    <div class="container">
+
+     <div class="message-window row">
+        <ul id="messageContainer">
+        </ul>
+      </div>
+
+      <div class="send-window row">
+        <div class="input-area">
+          <textarea id="inputWindow" rows="1"></textarea>
+        </div>
+        <div class="btn-area">
+          <button type="button" id="sendBtn" class="btn btn-primary" onclick="im.sendMessage()">发送</button>
+        </div>
+      </div>
+
+      <%= hidden_field_tag "imServerUrl", Config::CHAT["server"]%>
+      <%= hidden_field_tag "userName", current_user.name %>
+      <%= hidden_field_tag "userAvatar", current_user.avatar %>
+    </div>
+    <%= javascript_include_tag 'application' %>
+    <script type="text/javascript" src="<%=Config::CHAT['server']%>/client.js"></script>
+    <%= javascript_include_tag params[:controller] %>
+  </body>
+</html>
+
+<script type="text/template" id="messageTemplate">
+  <li class="message">
+    <div class="col-xs-2 col-sm-1">
+      <img src="{{avatar}}" class="avatar">
+    </div>
+    <div class="col-xs-10 col-sm-11">
+      <label>{{name}}</label>
+      <p>{{text}}</p>
+    </div>
+  </li>
+</script>
+<script type="text/template" id="messageTemplateMe">
+  <li class="message right">
+    <div class="col-xs-2 col-sm-1">
+      <img src="{{avatar}}" class="avatar">
+    </div>
+    <div class="col-xs-10 col-sm-11">
+      <label>{{name}}</label>
+      <p>{{text}}</p>
+    </div>
+  </li>
+</script>

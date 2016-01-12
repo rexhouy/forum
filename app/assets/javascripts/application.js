@@ -15,4 +15,6 @@
 //= require bootstrap-sprockets
 //= require redactor-rails
 //= require redactor-rails/langs/zh_cn
+//= require mustache.min
+//= require jquery.textarea_autosize
 //= require_tree ./common/

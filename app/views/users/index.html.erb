@@ -1,7 +1,7 @@
 <div class="row">
   <% @users.each do |u| %>
     <%= link_to edit_user_path(u), class: "user" do%>
-    <div class="avatar">
+    <div class="list-avatar">
       <%= avatar(u) %>
     </div>
     <div class="user-name">

@@ -1,0 +1,9 @@
+# File upload configuration
+development:
+  server: http://test.localhost/faye
+
+test:
+  server: http://test.localhost/faye
+
+production:
+  server: http://im.tenhs.com/faye

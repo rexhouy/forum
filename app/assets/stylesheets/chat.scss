@@ -1,3 +1,72 @@
-// Place all the styles related to the chat controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
+.message-window {
+    padding: 56px 0 36px 0;
+    height: 100%;
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}
+
+.message {
+    background: #fff;
+    padding: 4px 0;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    .image {
+        text-align: middle;
+    }
+    label {
+        font-weight: normal;
+        color: #777;
+        font-size: 12px;
+        display: block;
+    }
+    p {
+        display: inline-block;
+        text-align: left;
+    }
+}
+
+.message.right {
+    & > div {
+        float: right;
+        text-align: right;
+    }
+}
+
+.send-window {
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    min-height: 48px;
+    width: 100%;
+    padding: 8px 0;
+    display: table;
+    box-shadow: 0 -2px 3px rgba(0,0,0,.12);
+    .btn-area {
+        width: 56px;
+    }
+    .input-area, .btn-area {
+        display: table-cell;
+        padding: 0 12px;
+        vertical-align:middle;
+        overflow:hidden;
+    }
+    #inputWindow {
+        resize: none;
+        min-height: 32px;
+        max-height: 80px;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #aaa;
+        padding: 0 8px;
+        &:focus{
+            outline: none;
+            border-bottom: 1px solid $accent-color;
+        }
+    }
+    #sendBtn {
+        height: 32px;
+    }
+}
