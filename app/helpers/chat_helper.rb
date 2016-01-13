@@ -1,8 +1,8 @@
 module ChatHelper
 
         def avatar_url(user)
-                return "avatar.png" if user.avatar.nil?
-                user.avatar
+                return user.avatar if user.avatar.present?
+                image_url("avatar.png")
         end
 
 end
