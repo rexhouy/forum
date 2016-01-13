@@ -30,7 +30,7 @@
 
       <%= hidden_field_tag "imServerUrl", Config::CHAT["server"]%>
       <%= hidden_field_tag "userName", current_user.name %>
-      <%= hidden_field_tag "userAvatar", current_user.avatar %>
+      <%= hidden_field_tag "userAvatar", avatar_url(current_user) %>
     </div>
     <%= javascript_include_tag 'application' %>
     <script type="text/javascript" src="<%=Config::CHAT['server']%>/client.js"></script>
