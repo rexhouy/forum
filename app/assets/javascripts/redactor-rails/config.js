@@ -11,7 +11,7 @@ window.init_redactor = function(){
                 // application.js and application.css files and uncomment the line below:
                 // "plugins": ['fontsize', 'fontcolor', 'fontfamily', 'fullscreen', 'textdirection', 'clips'],
                 "imageUpload":"/images?" + params,
-                // "imageGetJson":"/redactor_rails/pictures",
+                "imageGetJson":"/redactor_rails/images?"+params,
                 // "fileUpload":"/redactor_rails/documents?" + params,
                 // "fileGetJson":"/redactor_rails/documents",
                 "path":"/assets/redactor-rails",

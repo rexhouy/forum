@@ -88,7 +88,7 @@ class TopicsController < ApplicationController
         # Use callbacks to share common setup or constraints between actions.
         def set_topic
                 @topic = Topic.find(params[:id])
-                render_404 unless @topic.user_id.eql? current_user.id
+                render_404 if current_user.user? && !@topic.user_id.eql?(current_user.id)
         end
 
         # Never trust parameters from the scary internet, only allow the white list through.

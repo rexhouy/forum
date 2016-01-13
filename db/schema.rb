@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160111114015) do
 
-  create_table "captchas", id: false, force: :cascade do |t|
+  create_table "captchas", force: :cascade do |t|
     t.string   "tel",              limit: 11, null: false
     t.string   "register_token",   limit: 6,  null: false
     t.datetime "register_sent_at",            null: false
@@ -71,11 +71,11 @@ ActiveRecord::Schema.define(version: 20160111114015) do
     t.datetime "locked_at"
     t.string   "icon",                limit: 255
     t.integer  "role",                limit: 4
-    t.boolean  "status",              limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar",              limit: 255
     t.string   "name",                limit: 255
+    t.boolean  "active",              limit: 1
   end
 
   add_index "users", ["tel"], name: "index_users_on_tel", unique: true, using: :btree
