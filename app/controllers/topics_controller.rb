@@ -20,6 +20,11 @@ class TopicsController < ApplicationController
                                 class: c.id.eql?(session[:category].to_i) ? "active" : ""
                         }
                 end
+                @menus << {
+                        name: "聊天室",
+                        href: "/chat",
+                        class: ""
+                }
         end
 
         # GET /topics/1
