@@ -32,7 +32,7 @@
         <%= avatar(@user, id: "avatarImage") %>
       </div>
       <p class="text-info">点击图片上传新头像</p>
-      <%= u.hidden_field :avatar, class: "form-control", required: true %>
+      <%= u.hidden_field :avatar, class: "form-control" %>
       <input type="hidden" id="thumb" value="true">
       <input type="file" style="visibility:hidden;height:0" id="avatarUploader" onchange="users.uploadAvatar(event)">
     </div>

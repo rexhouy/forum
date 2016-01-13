@@ -19,7 +19,7 @@ module ApplicationHelper
 
         def avatar(user, options = {})
                 url = user.avatar
-                url = "avatar.png" if url.nil?
+                url = "avatar.png" unless url.present?
                 image_tag(url, options).html_safe
         end
 
