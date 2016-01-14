@@ -31,6 +31,18 @@
                         });
                 };
 
+                self.openSearch = function() {
+                        utility.showBlockLayer();
+                        $(".search").show();
+                        $("#searchText").focus();
+                        nav.toggleSettings();
+                };
+
+                self.closeSearch = function() {
+                        $(".search").hide();
+                        utility.hideBlockLayer();
+                };
+
                 return self;
         };
 

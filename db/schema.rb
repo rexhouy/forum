@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114010931) do
+ActiveRecord::Schema.define(version: 20160114042349) do
 
   create_table "captchas", force: :cascade do |t|
     t.string   "tel",              limit: 11, null: false
@@ -68,24 +68,26 @@ ActiveRecord::Schema.define(version: 20160114010931) do
   add_index "user_favorites", ["user_id", "topic_id"], name: "index_user_favorites_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "tel",                 limit: 11,  default: "", null: false
-    t.string   "email",               limit: 255
-    t.string   "encrypted_password",  limit: 255, default: "", null: false
+    t.string   "tel",                    limit: 11,  default: "", null: false
+    t.string   "email",                  limit: 255
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",  limit: 255
-    t.string   "last_sign_in_ip",     limit: 255
-    t.integer  "failed_attempts",     limit: 4,   default: 0,  null: false
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.integer  "failed_attempts",        limit: 4,   default: 0,  null: false
     t.datetime "locked_at"
-    t.string   "icon",                limit: 255
-    t.integer  "role",                limit: 4
+    t.string   "icon",                   limit: 255
+    t.integer  "role",                   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar",              limit: 255
-    t.string   "name",                limit: 255
-    t.boolean  "active",              limit: 1
+    t.string   "avatar",                 limit: 255
+    t.string   "name",                   limit: 255
+    t.boolean  "active",                 limit: 1
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
   end
 
   add_index "users", ["tel"], name: "index_users_on_tel", unique: true, using: :btree

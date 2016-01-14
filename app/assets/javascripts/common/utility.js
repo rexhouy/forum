@@ -31,6 +31,15 @@
                                 params[kvPair[0]] = kvPair[1];
                         });
                         return params[name];
+                },
+                showBlockLayer: function() {
+                        $(".block-layer").show();
+                },
+                hideBlockLayer: function() {
+                        $(".block-layer").hide();
+                },
+                toTop: function() {
+                        $(document.body).animate({scrollTop: 0}, "slow");
                 }
         };
 })();

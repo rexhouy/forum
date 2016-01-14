@@ -1,0 +1,14 @@
+<div class="row">
+  <p style="padding: 20px;background: #fff;">
+    <% if @topics.empty? %>
+    没有找到与“<%=@search_text%>”相关的内容
+    <% else %>
+    “<%=@search_text%>”的搜索结果
+    <% end %>
+  </p>
+  <ul class="list">
+    <% @topics.each do |topic| %>
+    <%= render partial: "topic", locals: {topic: topic} %>
+    <% end %>
+  </ul>
+</div>

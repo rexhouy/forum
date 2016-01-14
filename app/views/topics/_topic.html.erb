@@ -1,0 +1,16 @@
+<li>
+  <%=link_to topic_path(topic), class: "flex-container" do%>
+  <div class="avatar topic-avatar">
+    <%=image_tag topic.user.avatar%>
+  </div>
+  <div class="flex-item">
+    <h3 class="<%= 'top' if topic.priority%>">
+      <%=topic.title%>
+    </h3>
+    <div class="info">
+      <span class="pull-left"><%=topic.user.name%></span>
+      <span class="pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> <%=topic.user_favorites.size%></span>
+    </div>
+  </div>
+  <% end %>
+</li>

@@ -9,7 +9,7 @@
       </div>
     </div>
     <% if !@back_url.present? && current_user.present? %>
-      <button class="pull-right icon btn" onclick="nav.showSettings();"><i class="glyphicon glyphicon-cog"></i></button>
+      <button class="pull-right icon btn" onclick="nav.toggleSettings();"><i class="glyphicon glyphicon-cog"></i></button>
     <% end %>
   </div>
   <% if @menus.present? %>

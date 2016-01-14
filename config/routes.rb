@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         get "users/captcha" => "auth/captcha#index"
 	post "redactor_rails/pictures" => "images#create"
 	post "topics/:id/like" => "topics#like"
+	get "topics/search" => "topics#search"
 	
 	resources :topics do
 		resources :posts

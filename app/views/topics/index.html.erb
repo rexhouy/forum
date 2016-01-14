@@ -1,14 +1,7 @@
 <div class="row">
   <ul class="list">
     <% @topics.each do |topic| %>
-      <li>
-        <%=link_to topic_path(topic) do%>
-          <h3><%=topic.title%></h3>
-          <div class="info">
-            <span>创建于<%=display_datetime topic.created_at%></span>
-          </div>
-        <% end %>
-      </li>
+      <%= render partial: "topic", locals: {topic: topic} %>
     <% end %>
   </ul>
 </div>
@@ -17,4 +10,15 @@
     <%= paginate_info @topics %>
     <%= will_paginate @topics, class: "apple_pagination" %>
   </div>
+</div>
+
+
+<div class="search">
+  <%= form_tag "/topics/search", method: "get", class: "flex-container" do %>
+  <button type="button" onclick="topics.closeSearch()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+  <div class="flex-item">
+    <input type="search" name="search_text" id="searchText" required="true" placeholder="搜索帖子" autocomplete="off"></input>
+  </div>
+  <button type="submit"><i class="glyphicon glyphicon-search"></i></button>
+  <% end %>
 </div>

@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
         protect_from_forgery with: :exception
         include CanCan::ControllerAdditions
 
+        # Checks authorization for all actions using cancan
+        load_and_authorize_resource
+
         WillPaginate.per_page = 20
 
         before_action :auth_user

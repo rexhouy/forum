@@ -25,8 +25,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Auth
 gem 'devise'
-gem 'devise-i18n'
 gem 'cancancan'
+
+# Full text search
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.4'

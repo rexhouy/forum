@@ -98,6 +98,13 @@ class TopicsController < ApplicationController
                 end
         end
 
+        # GET /topics/search
+        def search
+                @search_text = params[:search_text]
+                @topics = Topic.search(@search_text)
+                @back_url = topics_url
+        end
+
         private
         # Use callbacks to share common setup or constraints between actions.
         def set_topic

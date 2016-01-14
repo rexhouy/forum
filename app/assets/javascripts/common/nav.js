@@ -16,7 +16,7 @@
                 };
                 init();
 
-                self.showSettings = function() {
+                self.toggleSettings = function() {
                         if (show) {
                                 $(".settings").hide();
                         } else {
@@ -67,6 +67,13 @@
                         window.nav.scrollToActive();
                         window.nav.setScrollIndicator();
                 }
+                $(document).scroll(function() {
+                        if (document.body.scrollTop > 1500) {
+                                $("#toTop").show();
+                        } else {
+                                $("#toTop").hide();
+                        }
+                });
         });
 
 })();
