@@ -13,9 +13,9 @@
     <div class="card settings">
       <ul>
         <% if current_user.admin? %>
-        <li><%=link_to "创建文章", new_topic_path %></li>
-        <li><%=link_to "管理板块", categories_path %></li>
-        <li><%=link_to "管理用户", users_path %></li>
+          <li><%=link_to "创建文章", new_topic_path %></li>
+          <li><%=link_to "管理板块", categories_path %></li>
+          <li><%=link_to "管理用户", users_path %></li>
         <% end %>
         <li><%=link_to "账户设置", edit_user_path(current_user) %></li>
       </ul>

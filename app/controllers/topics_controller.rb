@@ -11,7 +11,7 @@ class TopicsController < ApplicationController
                 session["category"] = params[:category] if params[:category].present?
                 session["category"] = categories[0].id if categories.any? && session["category"].nil?
                 session["page"] = params[:page] if params[:page].present?
-                @topics = Topic.where(category_id: session["category"]).paginate(page: session["page"])
+                @topics = Topic.where(category_id: session["category"]).order(priority: :desc, id: :desc).paginate(page: session["page"])
                 @menus = []
                 categories.each do |c|
                         @menus << {
@@ -84,6 +84,20 @@ class TopicsController < ApplicationController
                 end
         end
 
+        # POST /topics/1/like.json
+        def like
+                fav = UserFavorite.where(user_id: current_user.id, topic_id: params[:id])
+                if fav.present?
+                        render plain: "marked_before"
+                else
+                        fav = UserFavorite.new
+                        fav.user_id = current_user.id
+                        fav.topic_id = params[:id]
+                        fav.save!
+                        render plain: "marked"
+                end
+        end
+
         private
         # Use callbacks to share common setup or constraints between actions.
         def set_topic
@@ -93,7 +107,7 @@ class TopicsController < ApplicationController
 
         # Never trust parameters from the scary internet, only allow the white list through.
         def topic_params
-                params[:topic].permit(:title, :category_id, :content)
+                params[:topic].permit(:title, :category_id, :content, :priority)
         end
 
         def set_back_url

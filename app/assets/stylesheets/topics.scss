@@ -1,3 +1,4 @@
+@import "variables";
 .topic-header {
     overflow: hidden;
     display: table;
@@ -94,4 +95,32 @@
         margin: 0;
         font-size: 10px;
     }
+}
+
+.like-btn {
+    float: right;
+    height: 34px;
+    margin-top: 10px;
+    vertical-align: middle;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #777;
+    .glyphicon {
+        padding-right: 12px;
+    }
+    &:disabled {
+        color: $accent-color;
+    }
+ }
+
+.fav-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 4px 12px;
+    background: $theme-color;
+    color: #fff;
+    opacity: 0;
 }

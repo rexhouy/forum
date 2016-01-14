@@ -14,13 +14,15 @@
   </div>
   <% if @menus.present? %>
     <div class="nav-bottom">
-      <div class="scroll-container">
+      <div class="left scroll-indicator" onclick="nav.scrollLeft()"><i class="glyphicon glyphicon-menu-left"></i></div>
+      <div class="scroll-container" onscroll="nav.setScrollIndicator()">
         <ul>
           <% @menus.each do |m| %>
             <li class="<%=m[:class]%>"><h2><%= link_to m[:name], m[:href] %></h2></li>
           <% end %>
         </ul>
       </div>
+      <div class="right scroll-indicator" onclick="nav.scrollRight()"><i class="glyphicon glyphicon-menu-right"></i></div>
     </div>
   <% end %>
 </header>

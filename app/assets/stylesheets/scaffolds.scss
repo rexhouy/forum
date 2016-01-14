@@ -20,6 +20,7 @@ p, ol, ul, td {
     background: image-url("bg.png");
     box-shadow: $shadow;
     position: relative;
+    padding-bottom: 1px;
     .nav-top {
         width: 100%;
         height: 56px;
@@ -42,7 +43,9 @@ p, ol, ul, td {
         }
     }
     .nav-bottom {
+        position: relative;
         height: 40px;
+        padding: 0 32px;
         h2 {
             margin: 0;
             font-size: 1em;
@@ -73,8 +76,10 @@ p, ol, ul, td {
         display: inline-block;
     }
     a {
+        color: #aaa;
         display: inline-block;
         padding: 8px 16px;
+        text-decoration: none;
         &:visited {
             color: #aaa;
         }
@@ -85,10 +90,32 @@ p, ol, ul, td {
     .active {
         border-left: 0;
         color: $accent-color;
-        border-bottom: 3px solid $accent-color;
+        border-bottom: 2px solid $accent-color;
         a {
             color: $accent-color;
         }
+    }
+}
+.scroll-indicator {
+    position: absolute;
+    top: 0;
+    height: 36px;
+    color: #ccc;
+    display: table;
+    z-index: 999;
+    width: 32px;
+    text-align: center;
+    visibility: hidden;
+    i {
+        font-size: 10px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    &.left {
+        left: 0;
+    }
+    &.right {
+        right: 0;
     }
 }
 

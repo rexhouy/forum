@@ -16,9 +16,16 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-12 col-md-2 topic-user-info user-info">
+  <div class="col-xs-6 col-md-8 topic-user-info user-info">
     <%=avatar @topic.user, class: "avatar" %>
     <p class="user-name"><%=@topic.user.name%></p>
+  </div>
+  <div class="col-xs-6 col-md-4">
+    <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+      <span id="favCount"><%= @topic.user_favorites.size %></span>
+    </button>
+    <div class="fav-alert" id="favAlert">已评价</div>
   </div>
   <div class="col-md-10 col-xs-12">
     <div class="topic-content">

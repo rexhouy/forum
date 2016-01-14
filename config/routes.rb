@@ -9,7 +9,9 @@ Rails.application.routes.draw do
                 unlocks: "auth/unlocks"
         }
         get "users/captcha" => "auth/captcha#index"
-
+	post "redactor_rails/pictures" => "images#create"
+	post "topics/:id/like" => "topics#like"
+	
 	resources :topics do
 		resources :posts
 	end
