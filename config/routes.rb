@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 	post "redactor_rails/pictures" => "images#create"
 	post "topics/:id/like" => "topics#like"
 	get "topics/search" => "topics#search"
-	
+
 	resources :topics do
 		resources :posts
 	end
@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 	resources :users
 
 	get "chat" => "chat#index"
+	post "chat" => "chat#create"
+	get "chat/latest" => "chat#latest"
+	get "chat/history" => "chat#history"
 
 	post "images" => "images#create"
         # The priority is based upon order of creation: first created -> highest priority.

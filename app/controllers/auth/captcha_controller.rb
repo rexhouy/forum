@@ -2,6 +2,7 @@
 require "securerandom"
 class Auth::CaptchaController < ApplicationController
         include SimpleCaptcha::ControllerHelpers
+        skip_before_action :authenticate_user!
 
         def index
                 return render(text: "图形验证码不正确") unless photo_captcha_valid?

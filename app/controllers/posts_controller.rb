@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class PostsController < ApplicationController
         before_action :set_post, only: [:destroy]
+        load_and_authorize_resource
 
         # GET /posts
         # GET /posts.json
@@ -20,10 +21,10 @@ class PostsController < ApplicationController
 
                 respond_to do |format|
                         if @post.save!
-                                format.html { redirect_to @topic, notice: "创建成功" }
+                                format.html { redirect_to topic_posts_url(params[:topic_id]), notice: "评论发表成功！" }
                                 format.json { render :show, status: :created, location: @post }
                         else
-                                format.html { redirect_to @topic, notice: "创建成功" }
+                                format.html { redirect_to topic_posts_url(params[:topic_id]), notice: "评论发表失败！" }
                                 format.json { render json: @post.errors, status: :unprocessable_entity }
                         end
                 end

@@ -2,6 +2,7 @@
 class TopicsController < ApplicationController
         before_action :set_topic, only: [:edit, :update, :destroy]
         before_action :set_back_url, only: [:show, :new]
+        load_and_authorize_resource
 
         # GET /topics
         # GET /topics.json

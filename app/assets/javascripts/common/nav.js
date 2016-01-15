@@ -67,13 +67,6 @@
                         window.nav.scrollToActive();
                         window.nav.setScrollIndicator();
                 }
-                $(document).scroll(function() {
-                        if (document.body.scrollTop > 1500) {
-                                $("#toTop").show();
-                        } else {
-                                $("#toTop").hide();
-                        }
-                });
         });
 
 })();

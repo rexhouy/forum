@@ -5,6 +5,7 @@
                 self.resizePostsFrame = function(obj) {
                         setTimeout(function() {
                                 $("#spinner").hide();
+                                obj.style.height = 0;
                                 obj.style.height = obj.contentWindow.document.body.scrollHeight + "px";
                         }, 500);
                 };
@@ -49,6 +50,7 @@
         $(function() {
                 $("#posts").load(function() {
                         window.topics.resizePostsFrame(this);
+                        $(".redactor-editor").html("");
                 }).attr("src", "/topics/"+$("#topicId").val()+"/posts");
         });
 

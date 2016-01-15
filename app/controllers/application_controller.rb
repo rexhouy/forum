@@ -4,15 +4,9 @@ class ApplicationController < ActionController::Base
         protect_from_forgery with: :exception
         include CanCan::ControllerAdditions
 
-        # Checks authorization for all actions using cancan
-        load_and_authorize_resource
-
         WillPaginate.per_page = 20
 
-        before_action :auth_user
-        def auth_user
-                authenticate_user! unless params[:controller].start_with? "auth"
-        end
+        before_action :authenticate_user!
 
         def render_404
                 raise ActionController::RoutingError.new("Not Found")

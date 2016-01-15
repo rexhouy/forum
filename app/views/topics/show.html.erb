@@ -33,8 +33,12 @@
     </div>
   </div>
   <div class="col-xs-12 col-md-12 topic-info">
-    <span>发表于：<%=display_datetime @topic.created_at%></span>
+    <span class="pull-left">发表于：<%=display_datetime @topic.created_at%></span>
+    <button class="back-to-top" id="toTop" onclick="utility.toTop()">
+      <i class="glyphicon glyphicon-arrow-up"></i> Top
+    </button>
   </div>
+
 </div>
 
 <div class="posts row">
@@ -43,13 +47,13 @@
   </div>
   <div class="col-xs-12 col-sm-10">
     <%=image_tag "spinner.gif", id: "spinner", class: "spinner" %>
-    <iframe frameborder="0" scrolling="no" width="100%" height="0" id="posts">
+    <iframe frameborder="0" scrolling="no" width="100%" height="0" id="posts" name="posts">
     </iframe>
   </div>
 </div>
 
 <div class="new-post">
-  <%= form_for([@topic, @topic.posts.build]) do |f|%>
+  <%= form_for([@topic, @topic.posts.build], html: {target: "posts"}) do |f|%>
     <div class="row">
       <%=f.label :content, "回复", class: "control-label col-md-2 col-xs-12"%>
       <div class="col-md-10 col-xs-12">

@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Auth
 gem 'devise'
-gem 'cancancan'
+gem 'cancancan', '~> 1.10'
 
 # Full text search
 gem 'elasticsearch-model'
