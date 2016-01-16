@@ -1,0 +1,22 @@
+<div class="message-window row" style="padding:0;">
+  <ul>
+    <% @chats.each do |chat| %>
+    <li class="message">
+      <div class="col-xs-2 col-sm-1">
+        <%= image_tag chat.avatar, class: "avatar" %>
+      </div>
+      <div class="col-xs-10 col-sm-11">
+        <label><%= chat.name %><span style="padding-left:12px;"><%=display_datetime chat.created_at%></span></label>
+        <p><%=chat.text%></p>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="list-footer">
+    <%= paginate_info @chats %>
+    <%= will_paginate @chats, class: "apple_pagination" %>
+  </div>
+</div>
