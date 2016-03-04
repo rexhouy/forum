@@ -28,7 +28,7 @@
               <p class="user-name"><%=p.user.name%></p>
             </div>
             <div class="col-xs-10 col-md-10 content">
-              <% if current_user.admin? %>
+              <% if current_user.present? && current_user.admin? %>
               <%= link_to topic_post_url(@topic_id, p), method: "delete", class: "close pull-right", data: {confirm: "确定要删除这个回复吗？"} do %>
               <span aria-hidden="true">&times;</span>
               <% end %>

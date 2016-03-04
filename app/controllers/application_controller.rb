@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
         WillPaginate.per_page = 20
 
-        before_action :authenticate_user!
+        # before_action :authenticate_user!
 
         def render_404
                 raise ActionController::RoutingError.new("Not Found")

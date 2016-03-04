@@ -3,11 +3,12 @@
 <div class="topic-header">
   <h2><%=@topic.title%></h2>
   <div class="control-group">
-    <% if current_user.admin? %>
+    <% if current_user.present? && current_user.admin? %>
       <%= link_to edit_topic_path(@topic), class: "btn btn-default" do %>
         <i class="glyphicon glyphicon-edit"></i> 编辑
       <% end %>
-    <% else %>
+    <% end %>
+    <% if current_user.present? %>
       <a href="#new_post" class="btn btn-default">
         <i class="glyphicon glyphicon-share-alt"></i> 回复
       </a>
@@ -20,6 +21,7 @@
     <%=avatar @topic.user, class: "avatar" %>
     <p class="user-name"><%=@topic.user.name%></p>
   </div>
+  <% if current_user.present? %>
   <div class="col-xs-6 col-md-4">
     <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
       <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -27,6 +29,7 @@
     </button>
     <div class="fav-alert" id="favAlert">已评价</div>
   </div>
+  <% end %>
   <div class="col-md-10 col-xs-12">
     <div class="topic-content">
       <%= @topic.content.html_safe %>
@@ -52,6 +55,7 @@
   </div>
 </div>
 
+<% if current_user.present? %>
 <div class="new-post">
   <%= form_for([@topic, @topic.posts.build], html: {target: "posts"}) do |f|%>
     <div class="row">
@@ -65,3 +69,4 @@
     </div>
   <% end %>
 </div>
+<% end %>

@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+        before_action :authenticate_user!
 
         def create
                 uploader = ImageUploader.new

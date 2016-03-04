@@ -12,13 +12,14 @@
 
     <div class="card settings">
       <ul>
-        <% if current_user.admin? %>
+        <% if current_user.present? && current_user.admin? %>
           <li><%=link_to "创建帖子", new_topic_path %></li>
           <li><%=link_to "管理板块", categories_path %></li>
           <li><%=link_to "管理用户", users_path %></li>
+          <% elsif current_user.present? %>
+          <li><%=link_to "账户设置", edit_user_path(current_user) %></li>
         <% end %>
         <li><%=link_to "搜索帖子", "###", onclick: "topics && topics.openSearch()" %></li>
-        <li><%=link_to "账户设置", edit_user_path(current_user) %></li>
       </ul>
     </div>
 
