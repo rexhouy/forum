@@ -44,6 +44,63 @@
                         utility.hideBlockLayer();
                 };
 
+                /**
+                 * Enroll start
+                 **********************************************************************/
+                var template = $("#question_template").html();
+                var name = "topic[questions_attributes][:index][:name]";
+                self.enableEnroll = function(enable) {
+                        if (enable) {
+                                $("#questions").show();
+                        } else {
+                                $("#questions").hide();
+                        }
+                };
+
+                var getQuestionsCount = function() {
+                        return $("#questions_tbody").children().size();
+                };
+
+                self.addQuestion = function() {
+                        $(template).appendTo($("#questions_tbody"));
+                };
+
+                self.removeQuestion = function(btn) {
+                        $(btn).parent().parent().remove();
+                };
+
+                self.setFormParams = function() {
+                        var container = $("#questions");
+                        var names = ["id", "content", "required"];
+                        $("#questions_tbody").find("tr").each(function(spec_index) {
+                                $(this).find("input").each(function(index, element) {
+                                        var html_name = name.replace(/:index/, spec_index).replace(/:name/, names[index]);
+                                        var value = element.value;
+                                        if (names[index] == "required") {
+                                                value = element.checked ? 1 : 0;
+                                        }
+                                        container.append($("<input type=hidden name="+html_name+" value='"+value+"'>"));
+                                });
+                        });
+                        return true;
+                };
+
+                self.enroll = function(form) {
+                        var content = {};
+                        try {
+                                $(form).find("input[type=text]").each(function(index, element) {
+                                        if (element.required && !element.value) {
+                                                throw "请完成报名表格再提交！";
+                                        }
+                                        content[element.name] = element.value;
+                                }).append($("<input type=hidden name='content' value='"+JSON.stringify(content)+"'>"));
+                        } catch(e) {
+                                alert(e);
+                                return false;
+                        }
+                        return true;
+                };
+
                 return self;
         };
 

@@ -1,4 +1,4 @@
-<%= form_for(@topic) do |f| %>
+<%= form_for(@topic, html: {onsubmit: "return topics.setFormParams()"}) do |f| %>
   <% if @topic.errors.any? %>
     <div class="alert alert-danger">
       <ul>
@@ -25,11 +25,56 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-10">
+      <div class="col-md-11 col-xs-12 col-md-offset-1">
         <%= f.check_box :priority %>
-        <%= f.label :check_box, class: "control-label" do %>
+        <%= f.label :priority, class: "control-label" do %>
         置顶
         <% end %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-11 col-xs-12 col-md-offset-1">
+        <%= f.check_box :enroll, onchange: "topics.enableEnroll(this.checked)" %>
+        <%= label_tag :enroll, class: "control-label" do %>
+        报名
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group" id="questions" <% if !@topic.enroll %>style="display:none;"<% end %>>
+      <label class="col-md-1 col-xs-12 control-label">表格</label>
+      <div class="col-md-11 col-xs-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="display:none"></th><th style="width:80%;">题目</th><th>必填</th><th>删除</th>
+            </tr>
+          </thead>
+          <tbody id="questions_tbody">
+            <% @topic.questions.each do |question| %>
+            <tr>
+              <td style="display:none"><input type="hidden" value="<%=question.id%>"></td>
+              <td><input type="text" class="form-control" value="<%=question.content%>"></td>
+              <td><input type="checkbox" <%if question.required%>checked="checked"<%end%>></td>
+              <td>
+                <button type="button" class="btn btn-danger" onclick="topics.removeQuestion(this)" title="删除">
+                  <span class='glyphicon glyphicon-trash' style='color:#fff;'></span>
+                </button>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="9">
+                <a href="javascript:topics.addQuestion()" class="btn btn-default">
+                  <span class='glyphicon glyphicon-plus'></span> 增加题目
+                </a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
 
@@ -45,3 +90,16 @@
     <%= f.submit "确认", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script type="text/template" id="question_template">
+  <tr>
+    <td style="display:none"><input type="hidden"></td>
+    <td><input type="text" class="form-control"></td>
+    <td><input type="checkbox"></td>
+    <td>
+      <button type="button" class="btn btn-danger" onclick="topics.removeQuestion(this)" title="删除">
+        <span class='glyphicon glyphicon-trash' style='color:#fff;'></span>
+      </button>
+    </td>
+  </tr>
+</script>

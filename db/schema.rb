@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115053359) do
+ActiveRecord::Schema.define(version: 20160307024826) do
+
+  create_table "access_logs", force: :cascade do |t|
+    t.string   "resource_name", limit: 255, null: false
+    t.integer  "resource_id",   limit: 4,   null: false
+    t.integer  "user_id",       limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "captchas", force: :cascade do |t|
     t.string   "tel",              limit: 11, null: false
@@ -37,11 +45,27 @@ ActiveRecord::Schema.define(version: 20160115053359) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "enrolls", force: :cascade do |t|
+    t.text     "content",    limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.integer  "topic_id",   limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text     "content",    limit: 65535
     t.integer  "favorite",   limit: 4
     t.integer  "topic_id",   limit: 4
     t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "content",    limit: 65535
+    t.integer  "topic_id",   limit: 4
+    t.boolean  "required",   limit: 1
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
@@ -64,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160115053359) do
     t.datetime "updated_at",                null: false
     t.integer  "category_id", limit: 4
     t.boolean  "priority",    limit: 1
+    t.boolean  "enroll",      limit: 1
   end
 
   create_table "user_favorites", force: :cascade do |t|

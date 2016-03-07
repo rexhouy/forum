@@ -1,0 +1,21 @@
+<% if @user_enroll_info.present? %>
+
+<p class="text-success text-center">已经报名！</p>
+
+<% else %>
+
+<%= form_tag "/topics/#{@topic.id}/enroll", method: "POST", class: "form-horizontal enroll-table", onsubmit: "return topics.enroll(this);" do %>
+  <% @topic.questions.each do |question| %>
+    <div class="form-group">
+      <label><%=question.content%></label>
+      <%= text_field_tag question.id, "", class: "form-control", required: question.required%>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">报名</button>
+  </div>
+<% end %>
+
+<% end %>
+
+<%= link_to("查看报名情况", "/topics/#{@topic.id}/enroll", class: "pull-right") if current_user.present? && current_user.admin? %>

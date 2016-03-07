@@ -181,3 +181,12 @@
         margin-right: 4px;
     }
 }
+
+.enroll-table {
+    box-shadow: $shadow;
+    background: #fff;
+    padding: 12px 8px;
+    .form-group {
+        margin: 12px 4px !important;
+    }
+}

@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 	resources :topics do
 		resources :posts
 	end
+	post "topics/:tid/enroll" => "enrolls#create"
+	get "topics/:id/enroll" => "enrolls#index"
+	get "enrolls/:id" => "enrolls#show"
         resources :categories
 	resources :users
 

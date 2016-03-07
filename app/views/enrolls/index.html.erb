@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>用户名</th>
+      <th>手机号</th>
+      <th>报名时间</th>
+      <th>查看</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @enrolls.each do |enroll| %>
+    <tr>
+      <td><%=enroll.user.name%></td>
+      <td><%=enroll.user.tel%></td>
+      <td><%=display_datetime enroll.created_at%></td>
+      <td><%=link_to "查看", "/enrolls/#{enroll.id}" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <%= paginate_info @enrolls %>
+        <%= will_paginate @enrolls, class: "apple_pagination" %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

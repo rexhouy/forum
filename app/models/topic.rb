@@ -3,6 +3,8 @@ class Topic < ActiveRecord::Base
         has_many :posts
         belongs_to :user
         has_many :user_favorites
+        has_many :questions
+        accepts_nested_attributes_for :questions
 
         validates :title, presence: true
         validates :content, presence: true

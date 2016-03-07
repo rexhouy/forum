@@ -1,0 +1,28 @@
+<p>
+  <div class="form-group">
+    <label class="control-label">项目</label>
+    <p class="form-control-static"><%=@enroll.topic.title%></p>
+  </div>
+  <div class="form-group">
+    <label class="control-label">用户名</label>
+    <p class="form-control-static"><%= @enroll.user.name%></p>
+  </div>
+  <div class="form-group">
+    <label class="control-label">手机号</label>
+    <p class="form-control-static"><%=@enroll.user.tel%></p>
+  </div>
+  <div class="form-group">
+    <label class="control-label">报名时间</label>
+    <p class="form-control-static"><%= display_datetime @enroll.created_at%></p>
+  </div>
+
+  <% if @enroll.content.present? %>
+  <% JSON.parse(@enroll.content).each do |k, v| %>
+    <div class="form-group">
+      <label class="control-label"><%=@questions[k.to_i]%></label>
+      <p class="form-control-static"><%=v%></p>
+    </div>
+  <% end %>
+  <% end %>
+
+</p>
