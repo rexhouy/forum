@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
         # GET /topics/1.json
         def show
                 @topic = Topic.find(params[:id])
-                if @topic.enroll
+                if @topic.enroll && current_user.present?
                         @user_enroll_info = Enroll.where(user_id: current_user.id, topic_id: @topic.id).first
                 end
                 create_access_log

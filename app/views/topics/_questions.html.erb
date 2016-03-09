@@ -4,7 +4,7 @@
 
 <% else %>
 
-<%= form_tag "/topics/#{@topic.id}/enroll", method: "POST", class: "form-horizontal enroll-table", onsubmit: "return topics.enroll(this);" do %>
+<%= form_tag "/topics/#{@topic.id}/enroll", method: "POST", class: "form-horizontal enroll-table", onsubmit: "return topics.enroll(this);", disabled: current_user.nil? do %>
   <% @topic.questions.each do |question| %>
     <div class="form-group">
       <label><%=question.content%></label>
