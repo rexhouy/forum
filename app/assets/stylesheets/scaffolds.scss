@@ -21,6 +21,7 @@ p, ol, ul, td {
     box-shadow: $shadow;
     position: relative;
     .nav-top {
+        position: relative;
         width: 100%;
         height: 56px;
         .brand {
@@ -220,4 +221,12 @@ img {
     font-size: 18px;
     color: #fff;
     display: none;
+}
+
+.function-btn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: #555;
+    color: #ddd;
 }
