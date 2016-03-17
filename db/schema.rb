@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307024826) do
+ActiveRecord::Schema.define(version: 20160317133031) do
 
   create_table "access_logs", force: :cascade do |t|
     t.string   "resource_name", limit: 255, null: false
@@ -45,12 +45,30 @@ ActiveRecord::Schema.define(version: 20160307024826) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "enroll_histories", force: :cascade do |t|
+    t.integer  "enroll_id",  limit: 4
+    t.integer  "status",     limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "enrolls", force: :cascade do |t|
     t.text     "content",    limit: 65535
     t.integer  "user_id",    limit: 4
     t.integer  "topic_id",   limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "status",     limit: 4
+    t.string   "order_id",   limit: 255
+    t.decimal  "fee",                      precision: 8, scale: 2
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.text     "trade_info", limit: 65535
+    t.integer  "enroll_id",  limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -80,15 +98,17 @@ ActiveRecord::Schema.define(version: 20160307024826) do
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "content",     limit: 65535
-    t.integer  "favorite",    limit: 4
-    t.integer  "user_id",     limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "category_id", limit: 4
-    t.boolean  "priority",    limit: 1
-    t.boolean  "enroll",      limit: 1
+    t.string   "title",            limit: 255
+    t.text     "content",          limit: 65535
+    t.integer  "favorite",         limit: 4
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.integer  "category_id",      limit: 4
+    t.boolean  "priority",         limit: 1
+    t.boolean  "enroll",           limit: 1
+    t.decimal  "enroll_fee",                     precision: 8, scale: 2
+    t.decimal  "enroll_promotion",               precision: 8, scale: 2
   end
 
   create_table "user_favorites", force: :cascade do |t|

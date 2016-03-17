@@ -1,0 +1,45 @@
+<div class="row">
+  <ul class="card-list">
+    <% @enrolls.each do |enroll| %>
+    <% next if enroll.topic.nil? %>
+    <li class="card enroll-card">
+      <div>
+        <div class="title">
+          <h3><%= enroll.topic.title  %></h3>
+          <div class="status pull-right"><%=enroll_status enroll%></div>
+        </div>
+        <div class="content">
+          <% if enroll.content.present? %>
+            <ol>
+              <% JSON.parse(enroll.content).each do |k, v| %>
+                <li>
+                  <label><%=k%></label>
+                  <p><%=v%></p>
+                </li>
+              <% end %>
+            </ol>
+          <% end %>
+          <ul class="content">
+            <li>
+              <label>报名时间</label>
+              <p><%= display_datetime enroll.created_at%></p>
+            </li>
+            <% if enroll.fee %>
+            <li>
+              <label>支付费用</label>
+              <p><%= number_to_currency enroll.fee, precision: 2 %></p>
+            </li>
+            <% end%>
+            </ul>
+        </div>
+        <div class="control-panel">
+          <%= link_to "查看详情", topic_url(enroll.topic), class: "btn" %>
+          <% if need_payment?(enroll) %>
+          <%= link_to "立即支付", "/payment/alipay/redirect?id=#{enroll.id}", class: "btn" %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>

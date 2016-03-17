@@ -13,6 +13,12 @@ class UsersController < ApplicationController
                 @back_url = root_path
         end
 
+        def enrolls
+                @enrolls = Enroll.where(user_id: current_user.id)
+                @title = "我的报名"
+                @back_url = root_path
+        end
+
         # GET /users/1
         # GET /users/1.json
         def show

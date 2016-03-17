@@ -30,4 +30,16 @@ module ApplicationHelper
                 ).html_safe
         end
 
+        def enroll_status(enroll)
+                return "<span class='text-danger'>尚未支付</span>".html_safe if need_payment?(enroll)
+                return "<span class='text-success'>已经报名</span>".html_safe if enroll.created?
+                return "<span class='text-success'>已支付报名费</span>".html_safe if enroll.created?
+                return "<span class='text-success'><i class='glyphicon glyphicon-ok-circle'></i> 管理员已确认</span>".html_safe if enroll.confirmed?
+                ""
+        end
+
+        def need_payment?(enroll)
+                enroll.created? && enroll.topic.enroll_fee.present?
+        end
+
 end

@@ -8,7 +8,7 @@
         <i class="glyphicon glyphicon-edit"></i> 编辑
       <% end %>
     <% end %>
-    <% if current_user.present? %>
+    <% if current_user.present? && !@topic.need_payment? %>
       <a href="#new_post" class="btn btn-default">
         <i class="glyphicon glyphicon-share-alt"></i> 回复
       </a>
@@ -17,26 +17,36 @@
 </div>
 
 <div class="row">
+  <% unless @topic.need_payment?%>
   <div class="col-xs-6 col-md-8 topic-user-info user-info">
     <%=avatar @topic.user, class: "avatar" %>
     <p class="user-name"><%=@topic.user.name%></p>
   </div>
+
   <% if current_user.present? %>
-  <div class="col-xs-6 col-md-4">
-    <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
-      <span class="glyphicon glyphicon-thumbs-up"></span>
-      <span id="favCount"><%= @topic.user_favorites.size %></span>
-    </button>
-    <div class="fav-alert" id="favAlert">已评价</div>
-  </div>
+    <div class="col-xs-6 col-md-4">
+      <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        <span id="favCount"><%= @topic.user_favorites.size %></span>
+      </button>
+      <div class="fav-alert" id="favAlert">已评价</div>
+    </div>
+  <% end %>
   <% end %>
   <div class="col-md-10 col-xs-12">
     <div class="topic-content">
       <%= @topic.content.html_safe %>
     </div>
-    <% if @topic.enroll %>
-    <%= render "questions" %>
+    <% if @user_enroll_info.present? %>
+    <p class="text-success text-center">已经报名！</p>
+    <% else %>
+    <% if @topic.has_questions? %>
+    <%= link_to "报名", "/topics/#{@topic.id}/new_enroll", class: "btn btn-primary btn-block" %>
+    <% else %>
+    <%= link_to "报名", "/topics/#{@topic.id}/enroll", class: "btn btn-primary btn-block", method: "POST" %>
     <% end %>
+    <% end %>
+
   </div>
   <div class="col-xs-12 col-md-12 topic-info">
     <span class="pull-left">发表于：<%=display_datetime @topic.created_at%></span>
@@ -46,6 +56,9 @@
   </div>
 </div>
 
+<%= link_to("查看报名情况", "/topics/#{@topic.id}/enroll", class: "pull-right") if current_user.present? && current_user.admin? %>
+
+<% unless @topic.need_payment? %>
 <div class="posts row">
   <div class="col-xs-12 col-sm-2">
     <h3>评论</h3>
@@ -58,17 +71,18 @@
 </div>
 
 <% if current_user.present? %>
-<div class="new-post">
-  <%= form_for([@topic, @topic.posts.build], html: {target: "posts"}) do |f|%>
-    <div class="row">
-      <%=f.label :content, "回复", class: "control-label col-md-2 col-xs-12"%>
-      <div class="col-md-10 col-xs-12">
-        <%=f.text_area :content, class: "redactor", required: true%>
+  <div class="new-post">
+    <%= form_for([@topic, @topic.posts.build], html: {target: "posts"}) do |f|%>
+      <div class="row">
+        <%=f.label :content, "回复", class: "control-label col-md-2 col-xs-12"%>
+        <div class="col-md-10 col-xs-12">
+          <%=f.text_area :content, class: "redactor", required: true%>
+        </div>
       </div>
-    </div>
-    <div class="actions col-md-offset-2">
-      <%= f.submit "确认", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-</div>
+      <div class="actions col-md-offset-2">
+        <%= f.submit "确认", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <% end %>

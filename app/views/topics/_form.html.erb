@@ -76,12 +76,26 @@
           </tfoot>
         </table>
       </div>
+      <label class="col-md-1 col-xs-12 control-label">报名收费</label>
+      <div class="col-md-11 col-xs-12">
+        <div class="input-group">
+          <div class="input-group-addon">￥</div>
+          <%=f.number_field :enroll_fee, class: "form-control", min: 1, step: 1%>
+        </div>
+      </div>
+      <label class="col-md-1 col-xs-12 control-label">优惠</label>
+      <div class="col-md-11 col-xs-12">
+        <div class="input-group">
+          <div class="input-group-addon">￥</div>
+          <%=f.number_field :enroll_promotion, class: "form-control", min: 0, step: 1%>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
       <%=f.label :content, "内容", class: "control-label col-md-1 col-xs-12"%>
       <div class="col-md-8 col-xs-12">
-        <%=f.text_area :content, class: "redactor", required: true%>
+        <%=f.text_area :content, class: "redactor"%>
       </div>
     </div>
   </div>

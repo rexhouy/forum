@@ -1,7 +1,14 @@
+<% if (!need_payment?(@enroll) && @enroll.created?) || @enroll.paid? %>
+<%= link_to "确认报名", "/enrolls/#{@enroll.id}/confirm", class: "btn btn-primary pull-right", method: "post", style: "margin: 4px;" %>
+<% end %>
 <p>
   <div class="form-group">
     <label class="control-label">项目</label>
     <p class="form-control-static"><%=@enroll.topic.title%></p>
+  </div>
+  <div class="form-group">
+    <label class="control-label">状态</label>
+    <p class="form-control-static"><%=enroll_status @enroll%></p>
   </div>
   <div class="form-group">
     <label class="control-label">用户名</label>
@@ -19,7 +26,7 @@
   <% if @enroll.content.present? %>
   <% JSON.parse(@enroll.content).each do |k, v| %>
     <div class="form-group">
-      <label class="control-label"><%=@questions[k.to_i]%></label>
+      <label class="control-label"><%=k%></label>
       <p class="form-control-static"><%=v%></p>
     </div>
   <% end %>

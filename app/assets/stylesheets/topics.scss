@@ -38,8 +38,13 @@
     img {
         width: 100%;
     }
+    h4 {
+        font-weight: bold;
+    }
+    hr {
+        border-top: 1px solid #aaa;
+    }
     p {
-        text-indent: 1.5em;
         font-size: 15px;
         line-height: 28px;
     }
@@ -78,6 +83,17 @@
             color: $accent-color;
             border: 1px solid $accent-color;
             font-size: 10px;
+            vertical-align: middle;
+        }
+    }
+    h3.enroll {
+        margin: 8px 0;
+        &:before {
+            content: "报名";
+            color: $accent-color;
+            border: 1px solid $accent-color;
+            font-size: 12px;
+            margin-right: 8px;
             vertical-align: middle;
         }
     }
@@ -179,14 +195,5 @@
     outline: none;
     i {
         margin-right: 4px;
-    }
-}
-
-.enroll-table {
-    box-shadow: $shadow;
-    background: #fff;
-    padding: 12px 8px;
-    .form-group {
-        margin: 12px 4px !important;
     }
 }

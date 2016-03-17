@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>支付结果</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  </head>
+  <body class="container">
+    <header class="header">
+      <div class="nav-top">
+        <div style="display: inline-block;" class="inherit-height">
+          <div class="table-center-wrap inherit-height">
+            <h1 class="brand table-center">支付结果</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="row">
+      <% if @success %>
+        <div class="alert alert-success" style="margin: 20px;">
+          <strong>支付成功！</strong>
+          <p>我们会于三个工作日内将电子发票发到您的邮箱！</p>
+        </div>
+      <% else %>
+        <div class="alert alert-danger" style="margin: 20px;">
+          <strong>支付失败！</strong>
+          <p>如有疑问，请联系客服人员！</p>
+        </div>
+      <% end %>
+      <div class="col-md-6 col-lg-6 col-sm-6">
+        <a href="/user/enrolls" class="btn btn-default btn-block">查看报名信息</a>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-6">
+        <a href="/" class="btn btn-primary btn-block">返回论坛首页</a>
+      </div>
+    </div>
+  </body>
+</html>

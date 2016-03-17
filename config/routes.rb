@@ -18,9 +18,19 @@ Rails.application.routes.draw do
 	end
 	post "topics/:tid/enroll" => "enrolls#create"
 	get "topics/:id/enroll" => "enrolls#index"
+	get "topics/:id/new_enroll" => "enrolls#new"
 	get "enrolls/:id" => "enrolls#show"
+	post "enrolls/:id/confirm" => "enrolls#confirm"
+
         resources :categories
 	resources :users
+	get "user/enrolls" => "users#enrolls"
+
+	# Payment
+	get 'payment/alipay/redirect' => 'payments#alipay_redirect'
+	# Payment callback
+	get 'payment/alipay/front_notify' => 'payments#alipay_front_notify'
+	post 'payment/alipay/notify' => 'payments#alipay_notify'
 
 	get "chat" => "chat#index"
 	post "chat" => "chat#create"

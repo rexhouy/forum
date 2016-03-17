@@ -33,5 +33,13 @@ class Topic < ActiveRecord::Base
                 __elasticsearch__.search(search_params).records
         end
 
+        def need_payment?
+                enroll_fee.present?
+        end
+
+        def has_questions?
+                questions.any?
+        end
+
 end
 Topic.import # for auto sync model with elastic search

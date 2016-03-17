@@ -12,6 +12,7 @@ class Ability
                         can :create, [Post, UserFavorite, Enroll]
                         can :search, [Topic]
                         can :like, [Topic]
+                        can :enrolls, [User]
                 end
         end
 end
