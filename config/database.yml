@@ -48,7 +48,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: forum_production
-  username: forum
-  password: <%= ENV['FORUM_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_PASSWORD'] %>
