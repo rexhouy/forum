@@ -11,7 +11,7 @@ class PaymentsController < ApplicationController
 
         def alipay_notify
                 if ["TRADE_FINISHED", "TRADE_SUCCESS"].include?(params[:trade_status])
-                        EnrollService.paid(params[:out_trade_no], params.to_json)
+                        EnrollService.new.paid(params[:out_trade_no], params.to_json)
                         logger.info "Payment succeed [#{params[:out_trade_no]}]."
                 end
                 render plain: "success"

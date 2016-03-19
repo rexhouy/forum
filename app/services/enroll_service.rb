@@ -2,16 +2,16 @@ class EnrollService
 
         def paid(order_id, payment)
                 enroll = Enroll.find_by_order_id(order_id)
-                logger.error "Enroll not found #{order_id}" if enroll.nil?
-                if order.created?
+                Rails.logger.error "Enroll not found #{order_id}" if enroll.nil?
+                if enroll.created?
                         Enroll.transaction do
-                                order.update(status: Enroll.statuses[:paid])
+                                enroll.update(status: Enroll.statuses[:paid])
                                 create_enroll_history(enroll)
                                 create_payment(enroll, payment)
                         end
                         #  TODO send_notify_to_seller(order)
                 else
-                        logger.error "Update enroll status to paid has failed. Enroll status incorrect. enroll id [#{enroll.order_id}], status [#{enroll.status}]"
+                        Rails.logger.error "Update enroll status to paid has failed. Enroll status incorrect. enroll id [#{enroll.order_id}], status [#{enroll.status}]"
                 end
         end
 
