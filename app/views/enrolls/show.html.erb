@@ -22,6 +22,12 @@
     <label class="control-label">报名时间</label>
     <p class="form-control-static"><%= display_datetime @enroll.created_at%></p>
   </div>
+  <% if @enroll.fee %>
+  <div class="form-group">
+    <label class="control-label">报名费</label>
+    <p class="form-control-static"><%= number_to_currency @enroll.fee, precision: 2 %></p>
+  </div>
+  <% end %>
 
   <% if @enroll.content.present? %>
   <% JSON.parse(@enroll.content).each do |k, v| %>
