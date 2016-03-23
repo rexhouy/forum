@@ -27,7 +27,7 @@ class ChatController < ApplicationController
 
         def history
                 @time = (params[:time] || 1).to_i
-                @chats = Chat.where("created_at > ?", DateTime.now.days_ago(@time)).order(id: :asc).paginate(page: params["page"])
+                @chats = Chat.where("created_at > ?", DateTime.current.days_ago(@time)).order(id: :asc).paginate(page: params["page"])
                 @title = "聊天历史记录"
                 @menus = [
                           { name: "昨天", href: "/chat/history?time=1", class: @time.eql?(1) ? "active" : "" },
