@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
                 self.active = true
         end
 
-        enum role: [:user, :admin]
+        enum role: [:user, :admin, :partener]
         validates :tel, presence: true, length: { is: 11 }, uniqueness: { message: "已经被使用" }
         validates :name, uniqueness: {  message: "已经被使用！" }
 

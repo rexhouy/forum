@@ -1,0 +1,124 @@
+<%= form_for(@topic, html: {onsubmit: "return topics.setFormParams()"}) do |f| %>
+<% if @topic.errors.any? %>
+<div class="alert alert-danger">
+  <ul>
+    <% @topic.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<input type="hidden" name="enroll" value="1">
+
+<div class="form-horizontal">
+  <div class="form-group">
+    <%=f.label :title, "标题", class: "control-label col-md-1 col-xs-12"%>
+    <div class="col-md-5 col-xs-12">
+      <%=f.text_field :title, class: "form-control", required: true%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%=f.label :desc, "简介", class: "control-label col-md-1 col-xs-12"%>
+    <div class="col-md-5 col-xs-12">
+      <%=f.text_field :desc, class: "form-control", required: true%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cover_image, class: "col-sm-2 control-label" do %>
+    封面图片 <span class="glyphicon glyphicon-info-sign icon" title="该图片将作为商品封面，为了保证显示效果，请使用256*256的图片并使用透明背景"></span>
+    <% end %>
+    <div class="col-sm-5">
+      <% if f.object.cover_image.nil? %>
+      <%= image_tag "empty-img.png", class: "img-thumbnail", onclick: "uploader.open()", id: "cover_image", style: "width:180px" %>
+      <% else %>
+      <%= image_tag f.object.cover_image, class: "img-thumbnail", onclick: "uploader.open()", id: "cover_image", style: "width:180px" %>
+      <% end %>
+      <div class="progress upload-progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          <span class="sr-only">100% Complete</span>
+        </div>
+      </div>
+      <%= f.hidden_field :cover_image %>
+    </div>
+  </div>
+
+  <div class="form-group" id="questions">
+    <label class="col-md-1 col-xs-12 control-label">表格</label>
+    <div class="col-md-11 col-xs-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="display:none"></th><th style="width:80%;">题目</th><th>必填</th><th>删除</th>
+          </tr>
+        </thead>
+        <tbody id="questions_tbody">
+          <% @topic.questions.each do |question| %>
+          <tr>
+            <td style="display:none"><input type="hidden" value="<%=question.id%>"></td>
+            <td><input type="text" class="form-control" value="<%=question.content%>"></td>
+            <td><input type="checkbox" <%if question.required%>checked="checked"<%end%>></td>
+            <td>
+              <button type="button" class="btn btn-danger" onclick="topics.removeQuestion(this)" title="删除">
+                <span class='glyphicon glyphicon-trash' style='color:#fff;'></span>
+              </button>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">
+              <a href="javascript:topics.addQuestion()" class="btn btn-default">
+                <span class='glyphicon glyphicon-plus'></span> 增加题目
+              </a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <label class="col-md-1 col-xs-12 control-label">报名收费</label>
+    <div class="col-md-11 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-addon">￥</div>
+        <%=f.number_field :enroll_fee, class: "form-control", min: 1, step: 1%>
+      </div>
+    </div>
+    <label class="col-md-1 col-xs-12 control-label">优惠</label>
+    <div class="col-md-11 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-addon">￥</div>
+        <%=f.number_field :enroll_promotion, class: "form-control", min: 0, step: 1%>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%=f.label :content, "内容", class: "control-label col-md-1 col-xs-12"%>
+    <div class="col-md-8 col-xs-12">
+      <%=f.text_area :content, class: "redactor"%>
+    </div>
+  </div>
+</div>
+
+<div class="actions col-md-offset-1">
+  <%= f.submit "确认", class: "btn btn-primary" %>
+</div>
+<% end %>
+
+<script type="text/template" id="question_template">
+  <tr>
+    <td style="display:none"><input type="hidden"></td>
+    <td><input type="text" class="form-control"></td>
+    <td><input type="checkbox"></td>
+    <td>
+      <button type="button" class="btn btn-danger" onclick="topics.removeQuestion(this)" title="删除">
+        <span class='glyphicon glyphicon-trash' style='color:#fff;'></span>
+      </button>
+    </td>
+  </tr>
+</script>
+
+<input type="file" name="image" id="cover_image_upload" style="visibility: hidden;" onchange="uploader.upload(event);">

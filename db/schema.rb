@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317133031) do
+ActiveRecord::Schema.define(version: 20160412055331) do
 
   create_table "access_logs", force: :cascade do |t|
     t.string   "resource_name", limit: 255, null: false
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 20160317133031) do
     t.boolean  "enroll",           limit: 1
     t.decimal  "enroll_fee",                     precision: 8, scale: 2
     t.decimal  "enroll_promotion",               precision: 8, scale: 2
+    t.string   "desc",             limit: 255
+    t.string   "cover_image",      limit: 255
   end
 
   create_table "user_favorites", force: :cascade do |t|

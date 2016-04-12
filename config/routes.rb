@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+	get "history_back" => "history_back#index"
+
         devise_for :users, controllers: {
                 sessions: "auth/sessions",
                 confirmations: "auth/sessions",
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
 	post "topics/:id/like" => "topics#like"
 	get "topics/search" => "topics#search"
 
+	post "image" => "images#create"
+
 	resources :topics do
 		resources :posts
 	end
@@ -21,6 +25,9 @@ Rails.application.routes.draw do
 	get "topics/:id/new_enroll" => "enrolls#new"
 	get "enrolls/:id" => "enrolls#show"
 	post "enrolls/:id/confirm" => "enrolls#confirm"
+
+	
+	get "activities" => "topics#activities"
 
         resources :categories
 	resources :users

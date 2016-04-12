@@ -1,0 +1,37 @@
+<div class="forum-entrance">
+  <div class="row">
+    <%= image_tag "cover.jpg" %>
+    <p>教育最需要平等，为更多孩子打开世界的大门，定期北京、台湾、香港交流与海外国际学校短期出国留学体验活动，用心发觉每个孩子的才能，帮助筹划申请国际名校海外大学。</p>
+    <div class="activity-actions">
+      <a  href="/topics" class="btn">进入论坛</a>
+    </div>
+  </div>
+</div>
+
+<div class="activities-container row">
+  <h1>报名活动</h1>
+  <% @activities.each do |activity| %>
+  <div class="activity">
+    <div class="activity-title">
+      <div class="activity-title-text">
+        <span class="activity-headline"><%=activity.title %></span>
+        <span class="activity-subhead"><%=activity.desc %></span>
+      </div>
+      <div class="activity-media">
+        <img src="<%=activity.cover_image%>">
+      </div>
+    </div>
+
+    <div class="activity-actions">
+      <% if current_user.present? && current_user.id.eql?(activity.user_id) %>
+      <%= link_to "删除", topic_url(activity), method: "delete", class: "btn btn-danger",  data: { confirm: "确实要删除\"#{activity.title}\"吗？" } %>
+      <%= link_to "修改", "/topics/#{activity.id}/edit", class: "btn" %>
+      <%= link_to "报名情况", "/topics/#{activity.id}/enroll", class: "btn" %>
+      <% else %>
+      <%= link_to "报名", "/topics/#{activity.id}/new_enroll", class: "btn" %>
+      <% end %>
+      <%= link_to "查看", topic_url(activity), class: "btn" %>
+    </div>
+  </div>
+  <% end %>
+</div>

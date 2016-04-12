@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 class TopicsController < ApplicationController
         before_action :set_topic, only: [:edit, :update, :destroy]
-        before_action :set_back_url, only: [:show, :new]
-        before_action :authenticate_user!, except: [:index, :show]
+        before_action :authenticate_user!, except: [:index, :show, :activities]
         load_and_authorize_resource
 
         # GET /topics
@@ -32,16 +31,20 @@ class TopicsController < ApplicationController
                         @user_enroll_info = Enroll.where(user_id: current_user.id, topic_id: @topic.id).first
                 end
                 create_access_log
+                set_back_url
         end
 
         # GET /topics/new
         def new
                 @topic = Topic.new
+                set_back_url
+                render :new_activity if current_user.partener?
         end
 
         # GET /topics/1/edit
         def edit
                 @back_url = topic_path(@topic)
+                render :edit_activity if current_user.partener?
         end
 
         # POST /topics
@@ -55,7 +58,10 @@ class TopicsController < ApplicationController
                                 format.html { redirect_to @topic, notice: "创建成功" }
                                 format.json { render :show, status: :created, location: @topic }
                         else
-                                format.html { render :new }
+                                format.html {
+                                        render :new if current_user.admin?
+                                        render :new_activity if current_user.partener?
+                                }
                                 format.json { render json: @topic.errors, status: :unprocessable_entity }
                         end
                 end
@@ -106,6 +112,10 @@ class TopicsController < ApplicationController
                 @back_url = topics_url
         end
 
+        def activities
+                @activities = Topic.where(category_id: nil).order(priority: :desc, id: :desc).paginate(page: session["page"])
+        end
+
         private
         # Use callbacks to share common setup or constraints between actions.
         def set_topic
@@ -115,12 +125,16 @@ class TopicsController < ApplicationController
 
         # Never trust parameters from the scary internet, only allow the white list through.
         def topic_params
-                params[:topic].permit(:title, :category_id, :content, :priority, :enroll, :enroll_fee, :enroll_promotion,
+                params[:topic].permit(:title, :category_id, :content, :priority, :enroll, :enroll_fee, :enroll_promotion, :desc, :cover_image,
                                       questions_attributes: [:id, :content, :required])
         end
 
         def set_back_url
-                @back_url = topics_path
+                if @topic.present? && @topic.category_id.nil?
+                        @back_url = "/activities"
+                else
+                        @back_url = topics_path
+                end
         end
 
         def create_access_log

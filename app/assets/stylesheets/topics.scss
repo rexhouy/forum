@@ -197,3 +197,93 @@
         margin-right: 4px;
     }
 }
+
+
+/**
+   * Activities
+   ****************************************/
+
+.forum-entrance {
+    & > div {
+        background: #fff;
+        display: block;
+        color: #555;
+        p {
+            margin: 8px 12px 0 12px;
+            line-height: 20px;
+        }
+    }
+}
+
+.activity-actions {
+    height: 48px;
+    padding: 8px 0;
+    text-align: right;
+    .btn {
+        height: 32px;
+        min-width: 64px;
+        border: none;
+        &:visited {
+            color: #375EAB;
+        }
+    }
+    .btn.btn-danger {
+        color: #d9534f;
+        background: #fff;
+        &:visited {
+            color: #d9534f;
+        }
+    }
+}
+
+.upload-progress {
+    height: 8px;
+    display: none;
+    width: 180px;
+}
+
+
+.activities-container {
+    h1 {
+        font-size: 28px;
+        margin-left: 8px;
+    }
+}
+
+.activity {
+    margin: 8px;
+    box-shadow: $shadow;
+    background: #fff;
+    .activity-title {
+        display: table;
+        width: 100%;
+        padding: 24px 16px 0 16px;
+    }
+    .activity-title-text {
+        display: table-cell;
+        vertical-align: top;
+        .activity-headline {
+            dipslay: block;
+            font-size: 20px;
+            color: #333;
+        }
+        .activity-subhead {
+            display: block;
+            font-size: 14px;
+            color: #777;
+            margin: 4px 8px 0 0;
+            line-height: 24px;
+        }
+    }
+    .activity-media {
+        position: relative;
+        top: -8px;
+        display: table-cell;
+        width: 112px;
+        overflow: hidden;
+        img {
+            width: 112px;
+            height: auto;
+        }
+    }
+}

@@ -8,7 +8,6 @@ class Topic < ActiveRecord::Base
 
         validates :title, presence: true
         validates :content, presence: true
-        validates :category_id, presence: true
 
         before_create do
                 self.favorite = 0
