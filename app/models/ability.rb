@@ -4,6 +4,7 @@ class Ability
         def initialize(user)
                 if user.nil?
                         can :read, [Topic, Post, Category]
+                        can :activities, [Topic]
                         return
                 end
                 if user.admin?
@@ -18,5 +19,6 @@ class Ability
                 can :search, [Topic]
                 can :like, [Topic]
                 can :enrolls, [User]
+                can :activities, [Topic]
         end
 end
