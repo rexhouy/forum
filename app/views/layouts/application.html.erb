@@ -22,9 +22,10 @@
         <% end %>
         <% if current_user.present? %>
           <li><%=link_to "账户设置", edit_user_path(current_user) %></li>
-          <li><%=link_to "我的报名", "/user/enrolls" %></li>
         <% end %>
         <li><%=link_to "搜索帖子", "###", onclick: "topics && topics.openSearch()" %></li>
+        <li><a href="/users/sign_in">登录/注册</a></li>
+        <li><%=link_to "我的报名", "/user/enrolls" %></li>
       </ul>
     </div>
 

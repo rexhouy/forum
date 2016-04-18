@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
         before_action :set_user, only: [:show, :edit, :update, :destroy]
         before_action :set_back_url, only: [:show, :new, :edit]
-        before_action :authenticate_user!
+        before_action :authenticate_user!, except: [:enrolls, :customer_sign_in, :customer_sign_in_check]
         load_and_authorize_resource
 
         # GET /users
@@ -14,7 +14,8 @@ class UsersController < ApplicationController
         end
 
         def enrolls
-                @enrolls = Enroll.where(user_id: current_user.id)
+                return redirect_to "/customer_sign_in?forward=#{request.original_url}" if session[:user_tel].nil?
+                @enrolls = Enroll.where(tel: session[:user_tel])
                 @title = "我的报名"
                 @back_url = root_path
         end
@@ -55,6 +56,17 @@ class UsersController < ApplicationController
                         format.html { redirect_to users_url, notice: "\"#{@user.name}\"已成功删除" }
                         format.json { head :no_content }
                 end
+        end
+
+        def customer_sign_in
+        end
+
+        def customer_sign_in_check
+                render_404 if session[:user_tel_check].nil?
+                session[:user_tel] = session[:user_tel_check]
+                captcha = Captcha.where(tel: session[:user_tel], register_token: params[:captcha])
+                return redirect_to "/customer_sign_in?forward=#{params[:forward]}", notice: "验证码错误" unless captcha.present?
+                redirect_to params[:forward]
         end
 
         private

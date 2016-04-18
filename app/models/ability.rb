@@ -3,8 +3,12 @@ class Ability
 
         def initialize(user)
                 if user.nil?
-                        can :read, [Topic, Post, Category]
+                        can :read, [Topic, Post, Category, Enroll]
+                        can :create, [Post, UserFavorite, Enroll]
                         can :activities, [Topic]
+                        can :enrolls, [User]
+                        can :customer_sign_in, [User]
+                        can :customer_sign_in_check, [User]
                         return
                 end
                 if user.admin?

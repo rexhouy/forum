@@ -12,5 +12,6 @@
  *
  *= require_tree .
  *= require redactor-rails
+ *= require jquery.datetimepicker.css
  *= require_self
  */

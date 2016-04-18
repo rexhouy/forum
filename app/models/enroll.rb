@@ -10,4 +10,8 @@ class Enroll < ActiveRecord::Base
                 self.status = Enroll.statuses[:created]
         end
 
+        def joined?(user_tel)
+                user_tel.eql?(tel) && ((!fee.nil? && paid?) || (fee.nil? && created?))
+        end
+
 end

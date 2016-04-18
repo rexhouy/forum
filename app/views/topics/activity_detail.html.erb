@@ -1,64 +1,70 @@
 <input type="hidden" id="topicId" value="<%=@topic.id%>">
 
+<div class="row">
+  <%=image_tag(@topic.cover_image, class: "cover") if @topic.cover_image%>
+</div>
+
 <div class="topic-header">
   <h2><%=@topic.title%></h2>
-  <div class="control-group">
-    <% if current_user.present? && current_user.admin? %>
-      <%= link_to edit_topic_path(@topic), class: "btn btn-default" do %>
-        <i class="glyphicon glyphicon-edit"></i> 编辑
-      <% end %>
-    <% end %>
-    <% if current_user.present? && !@topic.need_payment? %>
-      <a href="#new_post" class="btn btn-default">
-        <i class="glyphicon glyphicon-share-alt"></i> 回复
-      </a>
-    <% end %>
-  </div>
 </div>
 
 <div class="row">
-  <% unless @topic.need_payment?%>
+  <% unless @topic.enroll%>
   <div class="col-xs-6 col-md-8 topic-user-info user-info">
     <%=avatar @topic.user, class: "avatar" %>
     <p class="user-name"><%=@topic.user.name%></p>
   </div>
 
   <% if current_user.present? %>
-    <div class="col-xs-6 col-md-4">
-      <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
-        <span class="glyphicon glyphicon-thumbs-up"></span>
-        <span id="favCount"><%= @topic.user_favorites.size %></span>
-      </button>
-      <div class="fav-alert" id="favAlert">已评价</div>
-    </div>
+  <div class="col-xs-6 col-md-4">
+    <button onclick="topics.like(<%=@topic.id%>)" class="like-btn">
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+      <span id="favCount"><%= @topic.user_favorites.size %></span>
+    </button>
+    <div class="fav-alert" id="favAlert">已评价</div>
+  </div>
   <% end %>
+  <% else %>
+  <ul class="activity-info activity-detail">
+    <li>
+      <i class="glyphicon glyphicon-time"></i>
+      <span class="info"><%=display_datetime_zh @topic.start_time%></span>
+    </li>
+    <li>
+      <i class="glyphicon glyphicon-map-marker"></i>
+      <span class="info"><%=@topic.location%></span>
+    </li>
+    <li>
+      <i class="glyphicon glyphicon-user"></i>
+      <span class="info"><%= enroll_count @topic%></span>
+    </li>
+    <% if @topic.enroll_fee%>
+    <li>
+      <i class="glyphicon glyphicon-yen"></i>
+      <span class="info"><%= @topic.enroll_fee%></span>
+    </li>
+    <% end %>
+  </ul>
   <% end %>
+
   <div class="col-md-10 col-xs-12">
+    <% if @user_enroll_info.present? %>
+      <p>已经报名！</p>
+      <% if @user_enroll_info.joined?(session[:user_tel])%>
+      <%= link_to "进入聊天室", "/chat/#{@user_enroll_info.id}", class: "btn btn-block btn-primary" %>
+      <% end %>
+    <% else %>
+    <% if @topic.has_questions? %>
+    <%= link_to "报名", "/topics/#{@topic.id}/new_enroll", class: "btn btn-primary btn-block" %>
+    <% else %>
+    <%= link_to "报名", "/topics/#{@topic.id}/enroll", class: "btn btn-primary btn-block", method: "POST" %>
+    <% end %>
+    <% end %>
     <div class="topic-content">
       <%= @topic.content.html_safe %>
     </div>
-    <% if @user_enroll_info.present? %>
-      <p>已经报名！</p>
-      <% if @user_enroll_info.joined?(current_user)%>
-      <%= link_to "进入聊天室", "/chat/#{@user_enroll_info.id}", class: "btn" %>
-      <% end %>
-    <% else %>
-      <% if !@topic.enroll_stated?%>
-      报名尚未开始
-      <% elsif @topic.enroll_ended? %>
-      报名已经结束
-      <% elsif @topic.enroll_finished? %>
-      名额已满
-      <% else %>
-      <% if @topic.has_questions? %>
-      <%= link_to "报名", "/topics/#{@topic.id}/new_enroll", class: "btn btn-primary btn-block" %>
-      <% else %>
-      <%= link_to "报名", "/topics/#{@topic.id}/enroll", class: "btn btn-primary btn-block", method: "POST" %>
-      <% end %>
-      <% end %>
-    <% end %>
-
   </div>
+
   <div class="col-xs-12 col-md-12 topic-info">
     <span class="pull-left">发表于：<%=display_datetime @topic.created_at%></span>
     <button class="back-to-top" id="toTop" onclick="utility.toTop()">

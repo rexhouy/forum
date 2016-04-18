@@ -27,11 +27,12 @@ class TopicsController < ApplicationController
         # GET /topics/1.json
         def show
                 @topic = Topic.find(params[:id])
-                if @topic.enroll && current_user.present?
-                        @user_enroll_info = Enroll.where(user_id: current_user.id, topic_id: @topic.id).first
+                if @topic.enroll && session[:user_tel].present?
+                        @user_enroll_info = Enroll.where(tel: session[:user_tel], topic_id: @topic.id).first
                 end
                 create_access_log
                 set_back_url
+                render :activity_detail if @topic.enroll
         end
 
         # GET /topics/new
@@ -126,6 +127,7 @@ class TopicsController < ApplicationController
         # Never trust parameters from the scary internet, only allow the white list through.
         def topic_params
                 params[:topic].permit(:title, :category_id, :content, :priority, :enroll, :enroll_fee, :enroll_promotion, :desc, :cover_image,
+                                      :enroll_start_date, :enroll_end_date, :datetime, :start_time, :location, :min_places, :max_places,
                                       questions_attributes: [:id, :content, :required])
         end
 

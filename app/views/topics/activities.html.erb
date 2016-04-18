@@ -9,7 +9,7 @@
 </div>
 
 <div class="activities-container row">
-  <h1>报名活动</h1>
+  <h1>昆明近期活动</h1>
   <% @activities.each do |activity| %>
   <div class="activity">
     <div class="activity-title">
@@ -21,14 +21,35 @@
         <img src="<%=activity.cover_image%>">
       </div>
     </div>
-
+    <div class="action-body">
+      <ul class="activity-info">
+        <li>
+          <i class="glyphicon glyphicon-time"></i>
+          <span class="info"><%=display_datetime_zh activity.start_time%></span>
+        </li>
+        <li>
+          <i class="glyphicon glyphicon-map-marker"></i>
+          <span class="info"><%=activity.location%></span>
+        </li>
+      </ul>
+      <div class="sales-progress">
+        <div class="sales-progressbar">
+          <div class="sales-info">报名人数：<%=activity.enrolls.size%></div>
+          <div class="sales-progressbar-indicator" style="width:<%=progress activity%>"></div>
+        </div>
+      </div>
+      <div class="activity-status">
+        <%= "报名尚未开始" unless activity.enroll_started? %>
+        <%= "报名已经结束" if activity.enroll_ended? %>
+        <%= "名额已满" if activity.enroll_finished? %>
+      </div>
+    </div>
     <div class="activity-actions">
       <% if current_user.present? && current_user.id.eql?(activity.user_id) %>
       <%= link_to "删除", topic_url(activity), method: "delete", class: "btn btn-danger",  data: { confirm: "确实要删除\"#{activity.title}\"吗？" } %>
       <%= link_to "修改", "/topics/#{activity.id}/edit", class: "btn" %>
       <%= link_to "报名情况", "/topics/#{activity.id}/enroll", class: "btn" %>
       <% else %>
-      <%= link_to "报名", "/topics/#{activity.id}/new_enroll", class: "btn" %>
       <% end %>
       <%= link_to "查看", topic_url(activity), class: "btn" %>
     </div>

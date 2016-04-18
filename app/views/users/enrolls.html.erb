@@ -35,8 +35,10 @@
         <div class="control-panel">
           <%= link_to "查看详情", topic_url(enroll.topic), class: "btn" %>
           <% if need_payment?(enroll) %>
-          <%= link_to "立即支付", "/payment/alipay/redirect?id=#{enroll.id}", class: "btn" %>
-          <% end %>
+            <%= link_to "立即支付", "/payment/alipay/redirect?id=#{enroll.id}", class: "btn" %>
+              <% else %>
+              <%= link_to "进入聊天室", "/chat/#{enroll.id}", class: "btn" %>
+            <% end %>
         </div>
       </div>
     </li>

@@ -17,4 +17,20 @@
 //= require redactor-rails/langs/zh_cn
 //= require mustache.min
 //= require jquery.textarea_autosize
+//= require jquery.datetimepicker.min.js
 //= require_tree ./common/
+Date.parseDate = function( input, format ){
+        return Date.parse(input);
+};
+Date.prototype.dateFormat = function( format ){
+        switch( format ){
+        case "YYYY-MM-DD HH:mm:ss":
+                return this.getFullYear() + "-" + (this.getMonth()+ 1) + "-" + this.getDate()+ " " + this.getHours() + ":00:00";
+        case "HH":
+                return this.getHours();
+        case "YYYY-MM-DD":
+                return this.getFullYear() + "-" + (this.getMonth()+ 1) + "-" + this.getDate();
+        }
+        // or default format
+        return this.getDate()+'.'+(this.getMonth()+ 1)+'.'+this.getFullYear();
+};

@@ -1,6 +1,7 @@
 require 'elasticsearch/model'
 class Topic < ActiveRecord::Base
         has_many :posts
+        has_many :enrolls
         belongs_to :user
         has_many :user_favorites
         has_many :questions
@@ -38,6 +39,18 @@ class Topic < ActiveRecord::Base
 
         def has_questions?
                 questions.any?
+        end
+
+        def enroll_started?
+                Time.current >= enroll_start_date
+        end
+
+        def enroll_ended?
+                Time.current > enroll_end_date
+        end
+
+        def enroll_finished?
+                enrolls.size >= max_places
         end
 
 end

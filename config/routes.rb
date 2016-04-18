@@ -26,7 +26,9 @@ Rails.application.routes.draw do
 	get "enrolls/:id" => "enrolls#show"
 	post "enrolls/:id/confirm" => "enrolls#confirm"
 
-	
+	get "customer_sign_in" => "users#customer_sign_in"
+	post "customer_sign_in" => "users#customer_sign_in_check"
+
 	get "activities" => "topics#activities"
 
         resources :categories
@@ -39,17 +41,17 @@ Rails.application.routes.draw do
 	get 'payment/alipay/front_notify' => 'payments#alipay_front_notify'
 	post 'payment/alipay/notify' => 'payments#alipay_notify'
 
-	get "chat" => "chat#index"
-	post "chat" => "chat#create"
-	get "chat/latest" => "chat#latest"
-	get "chat/history" => "chat#history"
+	get "chat/:enroll_id" => "chat#index"
+	post "chat/:topic_id" => "chat#create"
+	get "chat/:topic_id/latest" => "chat#latest"
+	get "chat/:topic_id/history" => "chat#history"
 
 	post "images" => "images#create"
         # The priority is based upon order of creation: first created -> highest priority.
         # See how all your routes lay out with "rake routes".
 
         # You can have the root of your site routed with "root"
-        root "topics#index"
+        root "topics#activities"
 
         # Example of regular route:
         #   get 'products/:id' => 'catalog#view'

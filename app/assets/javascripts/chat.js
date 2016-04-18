@@ -60,6 +60,8 @@
         };
 
         $(function() {
+                CHANNEL += "/" + $("#topicId").val();
+                console.log(CHANNEL);
                 init();
                 window.im = im();
         });

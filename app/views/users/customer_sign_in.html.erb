@@ -1,0 +1,20 @@
+<%= form_tag "/customer_sign_in", method: "POST", class: "form-horizontal enroll-table row" do %>
+  <h3>查询我的报名情况</h3>
+  <div class="form-group">
+    <label>手机号</label>
+    <input type="telephone" id="tel" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label>手机验证码</label>
+    <div class="input-group">
+      <input type="number" maxlength="6" minlength="6" required class="form-control" name="captcha">
+      <span class="input-group-btn">
+        <button id="wizard" class="btn btn-default" type="button" style="height: auto;" onclick="users.castCaptcha()">获取验证码</button>
+      </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary pull-right">提交</button>
+  </div>
+  <input type="hidden" name="forward" value="<%=params[:forward]%>">
+<% end %>

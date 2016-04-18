@@ -8,12 +8,7 @@
         <h1 class="brand table-center"><%= @title.present? ? @title : "HelloWorld北京国际教育互促会" %></h1>
       </div>
     </div>
-    <% if !@back_url.present? && current_user.present? %>
-      <button class="pull-right icon btn" onclick="nav.toggleSettings();"><i class="glyphicon glyphicon-cog"></i></button>
-    <% end %>
-    <% if !@back_url.present? &&  current_user.nil? %>
-    <a href="/users/sign_in" class="pull-right icon btn function-btn">登录</a>
-    <% end %>
+    <button class="pull-right icon btn" onclick="nav.toggleSettings();"><i class="glyphicon glyphicon-option-vertical"></i></button>
   </div>
   <% if @menus.present? %>
     <div class="nav-bottom">

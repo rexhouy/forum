@@ -88,12 +88,30 @@
                 return self;
         };
 
+        window.topics = topics();
+
         $(function() {
                 $("#posts").load(function() {
                         window.topics.resizePostsFrame(this);
                         $(".redactor-editor").html("");
                 }).attr("src", "/topics/"+$("#topicId").val()+"/posts");
+
+                $.datetimepicker.setLocale("zh");
+                ["#topic_enroll_start_date", "#topic_enroll_end_date"].forEach(function(item, index) {
+                        $(item).datetimepicker({
+                                timepicker:false,
+                                format:'YYYY-MM-DD',
+                                formatTime:'',
+                                formatDate:'YYYY-MM-DD',
+                                lang:'zh'
+                        });
+                });
+                $("#topic_start_time").datetimepicker({
+                        format:'YYYY-MM-DD HH:mm:ss',
+                        formatTime:'HH',
+                        formatDate:'YYYY-MM-DD',
+                        lang:'zh'
+                });
         });
 
-        window.topics = topics();
 })();

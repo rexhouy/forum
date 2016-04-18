@@ -7,9 +7,24 @@
     </div>
   <% end %>
   <div class="form-group">
+    <label>手机号</label>
+    <input type="telephone" id="tel" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label>手机验证码</label>
+    <div class="input-group">
+      <input type="number" maxlength="6" minlength="6" required class="form-control" name="captcha">
+      <span class="input-group-btn">
+        <button id="wizard" class="btn btn-default" type="button" style="height: auto;" onclick="enrolls.castCaptcha()">获取验证码</button>
+      </span>
+    </div>
+  </div>
+  <% if @topic.enroll_fee.present? %>
+  <div class="form-group">
     <label>报名费</label>
     <p class="pull-right"><%=number_to_currency @topic.enroll_fee, precision: 2%></p>
   </div>
+  <% end %>
   <% if @topic.enroll_promotion%>
   <div class="form-group">
     <label>优惠</label>

@@ -13,9 +13,12 @@
     </div>
 
     <div class="container">
+      <input type="hidden" id="topicId" value="<%=@enroll.topic_id%>">
 
      <div class="message-window row">
-       <div class="message-history"><a href="/chat/history" target="_blank">查看更多历史消息</a></div>
+       <div class="message-history">
+         <a href="/chat/<%=@enroll.topic_id%>/history" target="_blank">查看更多历史消息</a>
+       </div>
         <ul id="messageContainer">
         </ul>
       </div>
@@ -30,8 +33,13 @@
       </div>
 
       <%= hidden_field_tag "imServerUrl", Config::CHAT["server"]%>
+      <% if current_user.present? %>
       <%= hidden_field_tag "userName", current_user.name %>
       <%= hidden_field_tag "userAvatar", avatar_url(current_user) %>
+      <% else %>
+      <%= hidden_field_tag "userName", user_name %>
+      <%= hidden_field_tag "userAvatar", asset_path("avatar.png") %>
+      <% end %>
     </div>
     <%= javascript_include_tag 'application' %>
     <script type="text/javascript" src="<%=Config::CHAT['server']%>/client.js"></script>

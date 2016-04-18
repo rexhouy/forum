@@ -17,6 +17,11 @@ module ApplicationHelper
                 date.strftime("%Y-%m-%d %H:%M:%S") if date.present?
         end
 
+        def display_datetime_zh(date)
+                date.strftime("%Y年%m月%d日 %H时%M分") if date.present?
+        end
+
+
         def avatar(user, options = {})
                 url = user.avatar
                 url = "avatar.png" unless url.present?

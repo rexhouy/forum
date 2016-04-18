@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class EnrollsController < ApplicationController
 
-        before_action :authenticate_user!
+        before_action :authenticate_user!, except: [:new, :create]
         load_and_authorize_resource
 
         def index
@@ -22,14 +22,18 @@ class EnrollsController < ApplicationController
         # POST /enrolls
         # POST /enrolls.json
         def create
+                render_404 if session[:user_tel_check].nil?
+                session[:user_tel] = session[:user_tel_check]
+                captcha = Captcha.where(tel: session[:user_tel], register_token: params[:captcha])
+                return redirect_to "/topics/#{params[:tid]}/new_enroll", notice: "验证码错误" unless captcha.present?
                 topic = Topic.find(params[:tid])
-                if Enroll.where(user_id: current_user.id, topic_id: params[:tid]).any?
-                        redirect_to topic_url(params[:tid]), notice: "您已经报过名了！"
+                if Enroll.where(tel: session[:user_tel], topic_id: params[:tid]).any?
+                        return redirect_to topic_url(params[:tid]), notice: "您已经报过名了！"
                 end
                 @enroll = Enroll.new()
                 @enroll.content = params[:content]
                 @enroll.topic = topic
-                @enroll.user_id = current_user.id
+                @enroll.tel = session[:user_tel]
                 @enroll.order_id = random_order_id
                 if topic.enroll_fee.present? && topic.enroll_fee > 0
                         promotion = topic.enroll_promotion || 0
